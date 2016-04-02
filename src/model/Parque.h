@@ -10,14 +10,17 @@
 
 #include <list>
 #include "Juego.h"
+#include "configuraciones/ConfiguracionParque.h"
 
 using namespace std;
 
 class Parque {
 private:
 	list<Juego*> juegos;
+	void crearPersonas();
+	void crearJuegos();
 public:
-	Parque();
+	Parque(ConfiguracionParque configuracionParque);
 	int obtenerRecaudacionCaja();
 	virtual ~Parque();
 };

@@ -7,8 +7,10 @@
 
 #include "Parque.h"
 
-Parque::Parque() {
-	// TODO Auto-generated constructor stub
+Parque::Parque(ConfiguracionParque configuracionParque) {
+	//crearJuegos();
+	//crearPersonas();
+
 
 }
 

@@ -10,13 +10,15 @@
 
 #include <list>
 
-#include "configuraciones/ConfiguracionJuego.h"
+#include "ConfiguracionJuego.h"
+#include "ConfiguracionPersona.h"
 
 using namespace std;
 
 class ConfiguracionParque {
 private:
 	list<ConfiguracionJuego> configuracionesJuegos;
+	list<ConfiguracionPersona> configuracionesPersonas;
 public:
 	ConfiguracionParque();
 	virtual ~ConfiguracionParque();

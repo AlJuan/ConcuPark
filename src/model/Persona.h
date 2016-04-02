@@ -22,8 +22,9 @@ private:
 	void jugar(Juego* juego);
 public:
 	Persona();
+	void entrarAlParque();
 	void jugarSiguienteJuego();
-	void salir();
+	void salirDelParque();
 	virtual ~Persona();
 };
 

@@ -5,7 +5,7 @@
  *      Author: juan
  */
 
-#include "configuraciones/ConfiguracionParque.h"
+#include "ConfiguracionParque.h"
 
 ConfiguracionParque::ConfiguracionParque() {
 	// TODO Auto-generated constructor stub

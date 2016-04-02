@@ -5,7 +5,7 @@
  *      Author: juan
  */
 
-#include "configuraciones/ConfiguracionJuego.h"
+#include "ConfiguracionJuego.h"
 
 ConfiguracionJuego::ConfiguracionJuego() {
 	// TODO Auto-generated constructor stub
