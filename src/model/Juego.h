@@ -11,7 +11,7 @@
 class Juego {
 private:
 	int capacidad;
-	int cuantoEstanJugando;
+	int personasJugando;
 	int costo;
 	int dineroAcumulado;
 public:
