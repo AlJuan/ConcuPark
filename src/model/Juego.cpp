@@ -24,3 +24,16 @@ Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
 
+int Juego::getCosto(){
+	return this->costo;
+}
+
+bool Juego::estaLleno(){
+	return this->capacidad == this->personasJugando;
+}
+
+void Juego::cobrarEntrada(Persona* persona){
+	persona->pagarEntrada(this->costo);
+	dineroAcumulado += this->costo;
+}
+
