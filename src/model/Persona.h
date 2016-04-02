@@ -9,7 +9,7 @@
 #define MODEL_PERSONA_H_
 
 #include <iterator>
-#include <list>
+#include <vector>
 #include "Juego.h"
 
 using namespace std;
@@ -18,8 +18,9 @@ class Persona {
 private:
 	int presupuestoInicial;
 	int presupuestoRestante;
-	list<Juego>::iterator it;
+	vector<Juego*>::iterator it;
 	void jugar(Juego* juego);
+	void getSiguienteJuego();
 public:
 	Persona();
 	void entrarAlParque();
