@@ -8,9 +8,8 @@
 #ifndef MODEL_PERSONA_H_
 #define MODEL_PERSONA_H_
 
-#include <iterator>
-#include <vector>
 #include "Juego.h"
+#include "ListaDeJuegos.h"
 
 using namespace std;
 
@@ -18,14 +17,14 @@ class Persona {
 private:
 	int presupuestoInicial;
 	int presupuestoRestante;
-	vector<Juego*>::iterator it;
+	ListaDeJuegos* juegos;
 	void jugar(Juego* juego);
 	void getSiguienteJuego();
 public:
 	Persona();
 	void entrarAlParque();
 	void jugarSiguienteJuego();
-	void pagarEntrada(int costo);
+	void pagarEntrada(Juego* juego, int costo);
 	void salirDelParque();
 	virtual ~Persona();
 };

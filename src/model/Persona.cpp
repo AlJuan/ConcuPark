@@ -16,6 +16,7 @@ Persona::~Persona() {
 	// TODO Auto-generated destructor stub
 }
 
-void Persona::pagarEntrada(int costo){
+void Persona::pagarEntrada(Juego* juego, int costo){
 	this->presupuestoRestante -= costo;
+	juego->cobrarEntrada();
 }

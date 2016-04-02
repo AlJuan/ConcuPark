@@ -8,7 +8,7 @@
 #ifndef MODEL_JUEGO_H_
 #define MODEL_JUEGO_H_
 
-#include "Persona.h"
+using namespace std;
 
 class Juego {
 private:
@@ -21,7 +21,7 @@ public:
 	int getCosto();
 	void setCosto(int costo);
 	bool estaLleno();
-	void cobrarEntrada(Persona* persona);
+	void cobrarEntrada();
 	virtual ~Juego();
 };
 
