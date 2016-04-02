@@ -18,6 +18,7 @@ private:
 	list<Juego*> juegos;
 public:
 	Parque();
+	int obtenerRecaudacionCaja();
 	virtual ~Parque();
 };
 

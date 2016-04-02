@@ -11,10 +11,13 @@
 class Juego {
 private:
 	int capacidad;
+	int cuantoEstanJugando;
 	int costo;
-	int dinero_acumulado;
+	int dineroAcumulado;
 public:
 	Juego();
+	int getCosto();
+	bool estaLleno();
 	virtual ~Juego();
 };
 

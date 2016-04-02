@@ -16,13 +16,14 @@ using namespace std;
 
 class Persona {
 private:
-	int presupuesto_inicial;
-	int presupuesto_restante;
+	int presupuestoInicial;
+	int presupuestoRestante;
 	list<Juego>::iterator it;
-
+	void jugar(Juego* juego);
 public:
 	Persona();
-	void jugar(Juego* juego);
+	void jugarSiguienteJuego();
+	void salir();
 	virtual ~Persona();
 };
 
