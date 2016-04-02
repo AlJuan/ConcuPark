@@ -17,6 +17,7 @@ private:
 public:
 	Juego();
 	int getCosto();
+	void setCosto(int costo);
 	bool estaLleno();
 	virtual ~Juego();
 };

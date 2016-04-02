@@ -23,10 +23,10 @@ private:
 public:
 	MemoriaCompartida ();
 	~MemoriaCompartida ();
-	int crear ( const std::string& archivo,const char letra );
+	int crear ( const std::string& archivo,const char letra, int cat );
 	void liberar ();
-	void escribir ( const T& dato );
-	T leer () const;
+	void escribir ( const T& dato, int pos );
+	T leer (int pos) const;
 
 };
 
@@ -36,7 +36,7 @@ template <class T> MemoriaCompartida<T> :: MemoriaCompartida() : shmId(0), ptrDa
 template <class T> MemoriaCompartida<T> :: ~MemoriaCompartida() {
 }
 
-template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra ) {
+template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
 
 	// generacion de la clave
 	key_t clave = ftok ( archivo.c_str(),letra );
@@ -44,7 +44,7 @@ template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archiv
 		return ERROR_FTOK;
 	else {
 		// creacion de la memoria compartida
-		this->shmId = shmget ( clave,sizeof(T),0644|IPC_CREAT );
+		this->shmId = shmget ( clave,sizeof(T) * cant,0644|IPC_CREAT );
 
 		if ( this->shmId == -1 )
 			return ERROR_SHMGET;
@@ -74,12 +74,12 @@ template <class T> void MemoriaCompartida<T> :: liberar () {
 	}
 }
 
-template <class T> void MemoriaCompartida<T> :: escribir ( const T& dato ) {
-	* (this->ptrDatos) = dato;
+template <class T> void MemoriaCompartida<T> :: escribir ( const T& dato, int pos ) {
+	this->ptrDatos[pos] = dato;
 }
 
-template <class T> T MemoriaCompartida<T> :: leer () const {
-	return ( *(this->ptrDatos) );
+template <class T> T MemoriaCompartida<T> :: leer (int pos) const {
+	return ( this->ptrDatos[pos] );
 }
 
 template <class T> int MemoriaCompartida<T> :: cantidadProcesosAdosados () const {

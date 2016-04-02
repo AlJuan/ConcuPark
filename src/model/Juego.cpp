@@ -12,6 +12,14 @@ Juego::Juego() {
 
 }
 
+void Juego::setCosto(int costo) {
+	this->costo = costo;
+}
+
+int Juego::getCosto(){
+	return costo;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
