@@ -8,6 +8,11 @@
 #include "ListaDeJuegos.h"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
+
+	//TODO:Hay que hacer un lock o mutex o algo en esta clase porque puede suceder
+	//que proc1 lea, proc2 lea, modifiquen y escriban los dos sobreescribiendo el
+	//Cambio del que escribio primero.
+
 	string archivo ( "../concuPark.conf" );
 	MemoriaCompartida<Juego> memoria;
 	this->cantidad = juegos.size();
