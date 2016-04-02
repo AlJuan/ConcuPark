@@ -1,0 +1,6 @@
+cada persona esta en un proceso diferente
+op1: los juegos estan en memoria compartida para acumular la plata (NO)
+op2: memoria compartida lista de juegos (SI) ¿lista de juegos o de punteros a juegos? Verificar si hay que hacer una lista con punteros donde tanto los punteros, la lista y los juegos sean mem compartida, o solo los juegos. Si comparto los juegos y los punteros no... estoy apuntando a lo mismo?
+Algoritmo para saber si me quede sin presupuesto: Un flag que por cada pasada indique si jugo un juego. Si llega al final y jugo algun juego en esa pasada, volver a empezar y poner el flag en falso. Si llego al final y no jugo a ninguno, se quedo sin plata. Este algoritmo hace que sea obligatorio que si una persona llega a un juego haya que esperar y no seguir al siguiente.
+Preguntar si es necesario ir acumulando la plata en la caja del parque o se puede ir guardando un int en los juegos y al final contar la plata de los juegos.
+
