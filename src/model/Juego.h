@@ -8,6 +8,8 @@
 #ifndef MODEL_JUEGO_H_
 #define MODEL_JUEGO_H_
 
+#include "Persona.h"
+
 class Juego {
 private:
 	int capacidad;
@@ -18,6 +20,7 @@ public:
 	Juego();
 	int getCosto();
 	bool estaLleno();
+	void cobrarEntrada(Persona* persona);
 	virtual ~Juego();
 };
 

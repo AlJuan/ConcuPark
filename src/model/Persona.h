@@ -24,6 +24,7 @@ public:
 	Persona();
 	void entrarAlParque();
 	void jugarSiguienteJuego();
+	void pagarEntrada(int costo);
 	void salirDelParque();
 	virtual ~Persona();
 };

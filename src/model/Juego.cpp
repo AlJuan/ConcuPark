@@ -24,3 +24,8 @@ bool Juego::estaLleno(){
 	return this->capacidad == this->personasJugando;
 }
 
+void Juego::cobrarEntrada(Persona* persona){
+	persona->pagarEntrada(this->costo);
+	dineroAcumulado += this->costo;
+}
+
