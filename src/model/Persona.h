@@ -10,21 +10,20 @@
 
 #include "Juego.h"
 #include "ListaDeJuegos.h"
-
+#include "IteradorListaDeJuegos.h"
 using namespace std;
 
 class Persona {
 private:
 	int presupuestoInicial;
 	int presupuestoRestante;
-	ListaDeJuegos* juegos;
+	IteradorListaDeJuegos itListaJuegos;
 	void jugar(Juego* juego);
-	void getSiguienteJuego();
 public:
-	Persona();
+	Persona(ListaDeJuegos* juegos);
 	void entrarAlParque();
 	void jugarSiguienteJuego();
-	void pagarEntrada(Juego* juego, int costo);
+	void pagarEntrada(Juego* juego);
 	void salirDelParque();
 	virtual ~Persona();
 };

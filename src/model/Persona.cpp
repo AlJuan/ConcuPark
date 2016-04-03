@@ -7,7 +7,7 @@
 
 #include "Persona.h"
 
-Persona::Persona() {
+Persona::Persona(ListaDeJuegos* juegos): itListaJuegos(juegos) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -16,7 +16,14 @@ Persona::~Persona() {
 	// TODO Auto-generated destructor stub
 }
 
-void Persona::pagarEntrada(Juego* juego, int costo){
-	this->presupuestoRestante -= costo;
+//void Persona::jugarSiguienteJuego(){
+//	while () {
+//		Juego* juegoActual = this->getSiguienteJuego();
+//	}
+//
+//}
+
+void Persona::pagarEntrada(Juego* juego){
+	this->presupuestoRestante -= juego->getCosto();
 	juego->cobrarEntrada();
 }
