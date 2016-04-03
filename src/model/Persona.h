@@ -18,7 +18,10 @@ private:
 	int presupuestoInicial;
 	int presupuestoRestante;
 	IteradorListaDeJuegos itListaJuegos;
-	void jugar(Juego* juego);
+	void jugar(Juego juego);
+	bool puedeJugarJuego(Juego juego);
+	bool puedePagarJuego(Juego);
+	bool puedePagarAlgunJuego();
 public:
 	Persona(ListaDeJuegos* juegos);
 	void entrarAlParque();

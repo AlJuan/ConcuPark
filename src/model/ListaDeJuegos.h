@@ -22,7 +22,7 @@ public:
 	ListaDeJuegos(vector<Juego> vec);
 	Juego getJuego(int posicion);
 	int getCantidad();
-	void setJuego(Juego* juego, int posicion);
+	void setJuego(Juego juego, int posicion);
 	virtual ~ListaDeJuegos();
 };
 

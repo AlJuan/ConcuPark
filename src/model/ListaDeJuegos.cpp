@@ -33,8 +33,8 @@ int ListaDeJuegos::getCantidad(){
 	return this->cantidad;
 }
 
-void ListaDeJuegos::setJuego(Juego* juego, int posicion) {
+void ListaDeJuegos::setJuego(Juego juego, int posicion) {
 	if (posicion >= cantidad) return;
-	this->mem.escribir(*juego, posicion);
+	this->mem.escribir(juego, posicion);
 }
 
