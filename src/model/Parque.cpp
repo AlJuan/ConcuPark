@@ -8,10 +8,15 @@
 #include "Parque.h"
 
 Parque::Parque(ConfiguracionParque configuracionParque) {
-	//crearJuegos();
+	crearJuegos(configuracionParque.getConfiguracionesJuegos());
 	//crearPersonas();
 
 
+}
+
+void Parque::crearJuegos(list<ConfiguracionJuego*> configuracionJuegos) {
+	//crear juegos
+	//crear lista de juegos
 }
 
 Parque::~Parque() {

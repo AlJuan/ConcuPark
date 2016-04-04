@@ -7,9 +7,13 @@
 
 #include "ConfiguracionPersona.h"
 
-ConfiguracionPersona::ConfiguracionPersona() {
-	// TODO Auto-generated constructor stub
+ConfiguracionPersona::ConfiguracionPersona(int presupuesto) {
+	this->saldoInicial = presupuesto;
 
+}
+
+int ConfiguracionPersona::getSaldoInicial() {
+	return saldoInicial;
 }
 
 ConfiguracionPersona::~ConfiguracionPersona() {

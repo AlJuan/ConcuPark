@@ -9,8 +9,10 @@
 #define MODEL_PARQUE_H_
 
 #include <list>
+
+#include "../configuraciones/ConfiguracionJuego.h"
+#include "../configuraciones/ConfiguracionParque.h"
 #include "Juego.h"
-#include "configuraciones/ConfiguracionParque.h"
 
 using namespace std;
 
@@ -18,7 +20,7 @@ class Parque {
 private:
 	list<Juego*> juegos;
 	void crearPersonas();
-	void crearJuegos();
+	void crearJuegos(list<ConfiguracionJuego*> configuracionJuegos);
 public:
 	Parque(ConfiguracionParque configuracionParque);
 	int obtenerRecaudacionCaja();

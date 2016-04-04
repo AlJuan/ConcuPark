@@ -8,17 +8,19 @@
 
 #include <iostream>
 #include <unistd.h>
-#include <unistd.h>
 
 #include "MemoriaCompartida.h"
 #include "model/Juego.h"
+#include "parser/Parser.h"
+#include "configuraciones/ConfiguracionParque.h"
+
 
 using namespace std;
 
 int main() {
 	int cant_juegos = 5;
 
-	string archivo ( "/home/kevin/Escritorio/ConcuPark/notas.txt" );
+	string archivo ( "/home/kevin/Escritorio/ConcuPark/src/concuPark.conf" );
 	MemoriaCompartida<Juego> memoria;
 	int estadoMemoria = memoria.crear ( archivo,'R', 5 );
 	if ( estadoMemoria == SHM_OK ) {
@@ -27,7 +29,23 @@ int main() {
 		cout << "ERROR memoria compartida" << endl;
 	}
 
-	Juego juego;
+	//// TEST PARSER ////
+	Parser parser;
+	ConfiguracionParque* confParque = parser.parse(archivo);
+	list<ConfiguracionJuego*> lista_configuracion_juegos = confParque->getConfiguracionesJuegos();
+	list<ConfiguracionPersona*> lista_configuracion_personas = confParque->getConfiguracionesPersonas();
+
+	for (list<ConfiguracionJuego*>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
+		cout << (*it)->getCapacidad() << " " << (*it)->getCosto() << endl;
+	}
+	for (list<ConfiguracionPersona*>::iterator it=lista_configuracion_personas.begin(); it != lista_configuracion_personas.end(); ++it) {
+		cout << (*it)->getSaldoInicial() << endl;
+	}
+	//////////
+
+
+	//// TEST MEMORIA COMPARTIDA ////
+	/**Juego juego;
 	juego.setCosto(1);
 	memoria.escribir(juego, 0);
 
@@ -44,11 +62,8 @@ int main() {
 			sleep(3);
 		}
 
-	}
+	}*/
+	//////////
 
-
-	//ConfiguracionParque confParque = Parser.parse();
-	//parque = crearParque(confParque);
-	//parque.abrir();
 	return 0;
 }
