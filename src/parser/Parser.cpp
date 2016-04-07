@@ -20,7 +20,7 @@ Parser::Parser() {
 
 }
 
-ConfiguracionParque* Parser::parse(string nombreArchivo) {
+ConfiguracionParque Parser::parse(string nombreArchivo) {
 	string capacidadesStr, costosStr, presupuestosStr;
 
 	ifstream archivo (nombreArchivo.c_str());
@@ -29,10 +29,10 @@ ConfiguracionParque* Parser::parse(string nombreArchivo) {
 	getline(archivo, presupuestosStr);
     archivo.close();
 
-	ConfiguracionParque* confParque = new ConfiguracionParque();
+	ConfiguracionParque confParque;
 
-    parseJuegos(confParque, capacidadesStr, costosStr);
-    parsePersonas(confParque, presupuestosStr);
+    parseJuegos(&confParque, capacidadesStr, costosStr);
+    parsePersonas(&confParque, presupuestosStr);
 
 	return confParque;
 

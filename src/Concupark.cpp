@@ -20,7 +20,7 @@ using namespace std;
 int main() {
 	int cant_juegos = 5;
 
-	string archivo ( "/home/kevin/Escritorio/ConcuPark/src/concuPark.conf" );
+	string archivo ( "/home/juan/git/ConcuPark/src/concuPark.conf" );
 	MemoriaCompartida<Juego> memoria;
 	int estadoMemoria = memoria.crear ( archivo,'R', 5 );
 	if ( estadoMemoria == SHM_OK ) {
@@ -31,9 +31,9 @@ int main() {
 
 	//// TEST PARSER ////
 	Parser parser;
-	ConfiguracionParque* confParque = parser.parse(archivo);
-	list<ConfiguracionJuego*> lista_configuracion_juegos = confParque->getConfiguracionesJuegos();
-	list<ConfiguracionPersona*> lista_configuracion_personas = confParque->getConfiguracionesPersonas();
+	ConfiguracionParque confParque = parser.parse(archivo);
+	list<ConfiguracionJuego*> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
+	list<ConfiguracionPersona*> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
 
 	for (list<ConfiguracionJuego*>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
 		cout << (*it)->getCapacidad() << " " << (*it)->getCosto() << endl;

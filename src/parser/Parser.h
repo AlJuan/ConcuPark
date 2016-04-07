@@ -20,7 +20,7 @@ private:
 public:
 	Parser();
 	vector<string> split(const string s, char delim);
-	ConfiguracionParque* parse(string nombreArchivo);
+	ConfiguracionParque parse(string nombreArchivo);
 	virtual ~Parser();
 };
 
