@@ -17,14 +17,14 @@ using namespace std;
 
 class ConfiguracionParque {
 private:
-	list<ConfiguracionJuego*> configuracionesJuegos;
-	list<ConfiguracionPersona*> configuracionesPersonas;
+	list<ConfiguracionJuego> configuracionesJuegos;
+	list<ConfiguracionPersona> configuracionesPersonas;
 public:
 	ConfiguracionParque();
-	list<ConfiguracionJuego*> getConfiguracionesJuegos();
-	list<ConfiguracionPersona*> getConfiguracionesPersonas();
-	void agregarConfiguracionJuego(int capacidad, int costo);
-	void agregarConfiguracionPersona(int presupuesto);
+	list<ConfiguracionJuego> getConfiguracionesJuegos();
+	list<ConfiguracionPersona> getConfiguracionesPersonas();
+	void agregarConfiguracionJuego(ConfiguracionJuego conf);
+	void agregarConfiguracionPersona(ConfiguracionPersona conf);
 	virtual ~ConfiguracionParque();
 };
 

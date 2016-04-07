@@ -44,7 +44,8 @@ void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr,
 	vector<string> costos = split(costosStr, ',');
 
 	for (unsigned int i = 0; i < capacidades.size(); i++) {
-		confParque->agregarConfiguracionJuego(atoi(capacidades[i].c_str()), atoi(costos[i].c_str()));
+		ConfiguracionJuego conf (atoi(capacidades[i].c_str()), atoi(costos[i].c_str()));
+		confParque->agregarConfiguracionJuego(conf);
 	}
 
 }
@@ -53,7 +54,8 @@ void Parser::parsePersonas(ConfiguracionParque* confParque, string presupuestosS
 	vector<string> presupuestos = split(presupuestosStr, ',');
 
 	for ( unsigned int i = 0; i < presupuestos.size(); i++) {
-		confParque->agregarConfiguracionPersona(atoi(presupuestos[i].c_str()));
+		ConfiguracionPersona conf (atoi(presupuestos[i].c_str()));
+		confParque->agregarConfiguracionPersona(conf);
 	}
 }
 

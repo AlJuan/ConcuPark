@@ -11,20 +11,20 @@ ConfiguracionParque::ConfiguracionParque() {
 
 }
 
-list<ConfiguracionJuego*> ConfiguracionParque::getConfiguracionesJuegos(){
+list<ConfiguracionJuego> ConfiguracionParque::getConfiguracionesJuegos(){
 	return configuracionesJuegos;
 }
 
-list<ConfiguracionPersona*> ConfiguracionParque::getConfiguracionesPersonas(){
+list<ConfiguracionPersona> ConfiguracionParque::getConfiguracionesPersonas(){
 	return configuracionesPersonas;
 }
 
-void ConfiguracionParque::agregarConfiguracionJuego(int capacidad, int costo) {
-	configuracionesJuegos.push_back(new ConfiguracionJuego(capacidad, costo));
+void ConfiguracionParque::agregarConfiguracionJuego(ConfiguracionJuego conf) {
+	configuracionesJuegos.push_back(conf);
 }
 
-void ConfiguracionParque::agregarConfiguracionPersona(int presupuesto) {
-	configuracionesPersonas.push_back(new ConfiguracionPersona(presupuesto));
+void ConfiguracionParque::agregarConfiguracionPersona(ConfiguracionPersona conf) {
+	configuracionesPersonas.push_back(conf);
 }
 
 ConfiguracionParque::~ConfiguracionParque() {

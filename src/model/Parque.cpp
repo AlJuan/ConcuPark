@@ -14,7 +14,7 @@ Parque::Parque(ConfiguracionParque configuracionParque) {
 
 }
 
-void Parque::crearJuegos(list<ConfiguracionJuego*> configuracionJuegos) {
+void Parque::crearJuegos(list<ConfiguracionJuego> configuracionJuegos) {
 	//crear juegos
 	//crear lista de juegos
 }

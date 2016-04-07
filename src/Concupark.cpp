@@ -32,14 +32,14 @@ int main() {
 	//// TEST PARSER ////
 	Parser parser;
 	ConfiguracionParque confParque = parser.parse(archivo);
-	list<ConfiguracionJuego*> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
-	list<ConfiguracionPersona*> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
+	list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
+	list<ConfiguracionPersona> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
 
-	for (list<ConfiguracionJuego*>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
-		cout << (*it)->getCapacidad() << " " << (*it)->getCosto() << endl;
+	for (list<ConfiguracionJuego>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
+		cout << (*it).getCapacidad() << " " << (*it).getCosto() << endl;
 	}
-	for (list<ConfiguracionPersona*>::iterator it=lista_configuracion_personas.begin(); it != lista_configuracion_personas.end(); ++it) {
-		cout << (*it)->getSaldoInicial() << endl;
+	for (list<ConfiguracionPersona>::iterator it=lista_configuracion_personas.begin(); it != lista_configuracion_personas.end(); ++it) {
+		cout << (*it).getSaldoInicial() << endl;
 	}
 	//////////
 

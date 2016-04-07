@@ -20,7 +20,7 @@ class Parque {
 private:
 	list<Juego*> juegos;
 	void crearPersonas();
-	void crearJuegos(list<ConfiguracionJuego*> configuracionJuegos);
+	void crearJuegos(list<ConfiguracionJuego> configuracionJuegos);
 public:
 	Parque(ConfiguracionParque configuracionParque);
 	int obtenerRecaudacionCaja();
