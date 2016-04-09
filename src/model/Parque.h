@@ -19,6 +19,7 @@ using namespace std;
 class Parque {
 private:
 	list<Juego*> juegos;
+	list<Persona*> personas;
 	void crearPersonas();
 	void crearJuegos(list<ConfiguracionJuego> configuracionJuegos);
 	void crearPersonas(list<ConfiguracionPersona> configuracionPersona);

@@ -24,7 +24,7 @@ void Persona::jugarSiguienteJuego(){
 	}
 	//Si puede avanza hasta que encuentra uno que puede jugar y juega
 	Juego juegoActual = this->itListaJuegos.getSiguienteJuego();
-	while (!this->puedeJugarJuego(juegoActual)) {
+	while (!this->puedePagarJuego(juegoActual)) {
 		juegoActual = this->itListaJuegos.getSiguienteJuego();
 	}
 	this->jugar(juegoActual);
@@ -44,10 +44,9 @@ void Persona::salirDelParque(){
 
 void Persona::jugar(Juego juego){
     //TODO
-}
-
-bool Persona::puedeJugarJuego(Juego juego){
-	return !juego.estaLleno() && this->puedePagarJuego(juego);
+	//wait
+	//sleep
+	//signal
 }
 
 bool Persona::puedePagarJuego(Juego juego){
