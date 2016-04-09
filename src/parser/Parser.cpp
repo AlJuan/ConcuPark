@@ -21,9 +21,10 @@ Parser::Parser() {
 }
 
 ConfiguracionParque Parser::parse(string nombreArchivo) {
-	string capacidadesStr, costosStr, presupuestosStr;
+	string capacidadesStr, costosStr, presupuestosStr, duracionesStr;
 
 	ifstream archivo (nombreArchivo.c_str());
+	getline(archivo, duracionesStr);
 	getline(archivo, capacidadesStr);
 	getline(archivo, costosStr);
 	getline(archivo, presupuestosStr);
@@ -31,7 +32,7 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 	ConfiguracionParque confParque;
 
-    parseJuegos(&confParque, capacidadesStr, costosStr);
+    parseJuegos(&confParque, capacidadesStr, costosStr, duracionesStr);
     parsePersonas(&confParque, presupuestosStr);
 
 	return confParque;
@@ -39,12 +40,13 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 }
 
 
-void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr) {
+void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr) {
+	vector<string> duraciones = split(duracionesStr, ',');
 	vector<string> capacidades = split(capacidadesStr, ',');
 	vector<string> costos = split(costosStr, ',');
 
 	for (unsigned int i = 0; i < capacidades.size(); i++) {
-		ConfiguracionJuego conf (atoi(capacidades[i].c_str()), atoi(costos[i].c_str()));
+		ConfiguracionJuego conf (atoi(capacidades[i].c_str()), atoi(costos[i].c_str()), atoi(duraciones[i].c_str()));
 		confParque->agregarConfiguracionJuego(conf);
 	}
 

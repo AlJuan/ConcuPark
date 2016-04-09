@@ -12,9 +12,11 @@ class ConfiguracionJuego {
 private:
 	int capacidad;
 	int costo;
+	int duracion;
 public:
-	ConfiguracionJuego(int capacidad, int costo);
+	ConfiguracionJuego(int capacidad, int costo, int duracion);
 	int getCapacidad();
+	int getDuracion();
 	int getCosto();
 	virtual ~ConfiguracionJuego();
 };

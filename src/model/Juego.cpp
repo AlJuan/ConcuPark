@@ -12,6 +12,7 @@
 Juego::Juego(int id, ConfiguracionJuego conf) {
 	this->id = id;
 	this->capacidad = conf.getCapacidad();
+	this->duracion = conf.getDuracion();
 	this->personasJugando = 0;
 	this->dineroAcumulado = 0;
 	this->costo = conf.getCosto();
