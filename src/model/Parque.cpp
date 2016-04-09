@@ -34,6 +34,13 @@ void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
 
 }
 
+void Parque::abrirParque(){
+	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
+		Persona* p = (*it);
+		p->init();
+	}
+}
+
 Parque::~Parque() {
 	// TODO Auto-generated destructor stub
 }

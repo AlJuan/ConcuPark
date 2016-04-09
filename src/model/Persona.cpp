@@ -6,6 +6,7 @@
  */
 
 #include "Persona.h"
+#include <unistd.h>
 
 Persona::Persona(int id, ConfiguracionPersona conf, ListaDeJuegos* juegos): itListaJuegos(juegos) {
 	this->id = id;
@@ -48,6 +49,19 @@ void Persona::jugar(Juego juego){
 	//wait
 	//sleep
 	//signal
+}
+
+void Persona::init(){
+	int id = fork();
+	if (id == 0) {
+		//Si es el hijo comienza su ejecucion
+		this->entrarAlParque();
+	}
+	//Si es el padre no hace nada...
+}
+
+void Persona::entrarAlParque(){
+
 }
 
 bool Persona::puedePagarJuego(Juego juego){

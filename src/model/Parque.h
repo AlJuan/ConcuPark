@@ -28,6 +28,7 @@ private:
 
 public:
 	Parque(ConfiguracionParque configuracionParque);
+	void abrirParque();
 	int obtenerRecaudacionCaja();
 	virtual ~Parque();
 };
