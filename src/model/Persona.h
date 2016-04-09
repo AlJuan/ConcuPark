@@ -16,6 +16,7 @@ using namespace std;
 
 class Persona {
 private:
+	int id;
 	int presupuestoInicial;
 	int presupuestoRestante;
 	IteradorListaDeJuegos itListaJuegos;
@@ -24,7 +25,7 @@ private:
 	bool puedePagarJuego(Juego);
 	bool puedePagarAlgunJuego();
 public:
-	Persona( ConfiguracionPersona conf, ListaDeJuegos* juegos);
+	Persona( int id, ConfiguracionPersona conf, ListaDeJuegos* juegos);
 	void entrarAlParque();
 	void jugarSiguienteJuego();
 	void pagarEntrada(Juego* juego);

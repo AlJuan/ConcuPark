@@ -13,12 +13,14 @@
 #include "../configuraciones/ConfiguracionJuego.h"
 #include "../configuraciones/ConfiguracionParque.h"
 #include "Juego.h"
+#include "Persona.h"
+#include "ListaDeJuegos.h"
 
 using namespace std;
 
 class Parque {
 private:
-	list<Juego*> juegos;
+	ListaDeJuegos* juegos;
 	list<Persona*> personas;
 	void crearPersonas();
 	void crearJuegos(list<ConfiguracionJuego> configuracionJuegos);

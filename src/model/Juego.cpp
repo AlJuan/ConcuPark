@@ -9,7 +9,8 @@
 
 #include "../configuraciones/ConfiguracionJuego.h"
 
-Juego::Juego(ConfiguracionJuego conf) {
+Juego::Juego(int id, ConfiguracionJuego conf) {
+	this->id = id;
 	this->capacidad = conf.getCapacidad();
 	this->personasJugando = 0;
 	this->dineroAcumulado = 0;

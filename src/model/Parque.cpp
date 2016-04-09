@@ -16,16 +16,20 @@ Parque::Parque(ConfiguracionParque configuracionParque) {
 
 void Parque::crearJuegos(list<ConfiguracionJuego> configuracionJuegos) {
 	vector<Juego> juegosTmp;
+	int id = 1;
 	for (list<ConfiguracionJuego>::iterator it=configuracionJuegos.begin(); it != configuracionJuegos.end(); ++it) {
-		juegosTmp.push_back(Juego(*it));
+		juegosTmp.push_back(Juego(id, *it));
+		id ++;
 	}
-	//crear lista de juegos
+	this->juegos = new ListaDeJuegos(juegosTmp);
 }
 
 void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
+	int id = 1;
 	for (list<ConfiguracionPersona>::iterator it=configuracionPersonas.begin(); it != configuracionPersonas.end(); ++it) {
-		Persona* persona = new Persona(*it, this->juegos);
+		Persona* persona = new Persona(id, *it, this->juegos);
 		personas.push_back(persona);
+		id ++;
 	}
 
 }

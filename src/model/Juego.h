@@ -14,12 +14,13 @@ using namespace std;
 
 class Juego {
 private:
+	int id;
 	int capacidad;
 	int personasJugando;
 	int costo;
 	int dineroAcumulado;
 public:
-	Juego(ConfiguracionJuego conf);
+	Juego(int id, ConfiguracionJuego conf);
 	int getCosto();
 	void setCosto(int costo);
 	bool estaLleno();
