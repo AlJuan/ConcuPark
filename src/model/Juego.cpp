@@ -7,9 +7,13 @@
 
 #include "Juego.h"
 
-Juego::Juego() {
-	// TODO Auto-generated constructor stub
+#include "../configuraciones/ConfiguracionJuego.h"
 
+Juego::Juego(ConfiguracionJuego conf) {
+	this->capacidad = conf.getCapacidad();
+	this->personasJugando = 0;
+	this->dineroAcumulado = 0;
+	this->costo = conf.getCosto();
 }
 
 void Juego::setCosto(int costo) {

@@ -8,6 +8,8 @@
 #ifndef MODEL_JUEGO_H_
 #define MODEL_JUEGO_H_
 
+class ConfiguracionJuego;
+
 using namespace std;
 
 class Juego {
@@ -17,7 +19,7 @@ private:
 	int costo;
 	int dineroAcumulado;
 public:
-	Juego();
+	Juego(ConfiguracionJuego conf);
 	int getCosto();
 	void setCosto(int costo);
 	bool estaLleno();

@@ -8,7 +8,6 @@
 #include "Persona.h"
 
 Persona::Persona(ListaDeJuegos* juegos): itListaJuegos(juegos) {
-	// TODO Auto-generated constructor stub
 
 }
 
