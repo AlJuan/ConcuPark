@@ -19,11 +19,6 @@ Persona::~Persona() {
 
 
 void Persona::jugarSiguienteJuego(){
-	//Si no puede jugar niguno se va del parque
-	if (!this->puedePagarAlgunJuego()){
-		this->salirDelParque();
-		return;
-	}
 	//Si puede avanza hasta que encuentra uno que puede jugar y juega
 	Juego juegoActual = this->itListaJuegos.getSiguienteJuego();
 	while (!this->puedePagarJuego(juegoActual)) {
@@ -41,7 +36,9 @@ bool Persona::puedePagarAlgunJuego(){
 }
 
 void Persona::salirDelParque(){
-    //TODO
+	cout << "Persona " << id << ": salgo del parque..." << endl;
+	exit (0);
+
 }
 
 void Persona::jugar(Juego juego){
@@ -56,12 +53,17 @@ void Persona::init(){
 	if (id == 0) {
 		//Si es el hijo comienza su ejecucion
 		this->entrarAlParque();
+		this->salirDelParque();
 	}
 	//Si es el padre no hace nada...
 }
 
 void Persona::entrarAlParque(){
-
+	cout << "Persona " << id << ": Entro al parque..." << endl;
+	//Si no puede pagar niguno sale
+	while (!this->puedePagarAlgunJuego()) {
+		this->jugarSiguienteJuego();
+	}
 }
 
 bool Persona::puedePagarJuego(Juego juego){

@@ -11,6 +11,8 @@
 #include "../configuraciones/ConfiguracionPersona.h"
 #include "IteradorListaDeJuegos.h"
 #include "Juego.h"
+#include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
