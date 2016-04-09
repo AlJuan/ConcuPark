@@ -21,6 +21,8 @@ private:
 	list<Juego*> juegos;
 	void crearPersonas();
 	void crearJuegos(list<ConfiguracionJuego> configuracionJuegos);
+	void crearPersonas(list<ConfiguracionPersona> configuracionPersona);
+
 public:
 	Parque(ConfiguracionParque configuracionParque);
 	int obtenerRecaudacionCaja();

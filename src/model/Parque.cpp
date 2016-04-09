@@ -9,7 +9,7 @@
 
 Parque::Parque(ConfiguracionParque configuracionParque) {
 	crearJuegos(configuracionParque.getConfiguracionesJuegos());
-	//crearPersonas();
+	crearPersonas(configuracionParque.getConfiguracionesPersonas());
 
 
 }
@@ -17,6 +17,10 @@ Parque::Parque(ConfiguracionParque configuracionParque) {
 void Parque::crearJuegos(list<ConfiguracionJuego> configuracionJuegos) {
 	//crear juegos
 	//crear lista de juegos
+}
+
+void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
+
 }
 
 Parque::~Parque() {
