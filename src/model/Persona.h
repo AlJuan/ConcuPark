@@ -8,9 +8,10 @@
 #ifndef MODEL_PERSONA_H_
 #define MODEL_PERSONA_H_
 
-#include "Juego.h"
-#include "ListaDeJuegos.h"
+#include "../configuraciones/ConfiguracionPersona.h"
 #include "IteradorListaDeJuegos.h"
+#include "Juego.h"
+
 using namespace std;
 
 class Persona {
@@ -23,7 +24,7 @@ private:
 	bool puedePagarJuego(Juego);
 	bool puedePagarAlgunJuego();
 public:
-	Persona(ListaDeJuegos* juegos);
+	Persona( ConfiguracionPersona conf, ListaDeJuegos* juegos);
 	void entrarAlParque();
 	void jugarSiguienteJuego();
 	void pagarEntrada(Juego* juego);

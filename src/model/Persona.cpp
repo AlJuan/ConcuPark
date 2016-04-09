@@ -7,8 +7,8 @@
 
 #include "Persona.h"
 
-Persona::Persona(ListaDeJuegos* juegos): itListaJuegos(juegos) {
-
+Persona::Persona(ConfiguracionPersona conf, ListaDeJuegos* juegos): itListaJuegos(juegos) {
+	this->presupuestoInicial = conf.saldoInicial;
 }
 
 Persona::~Persona() {
