@@ -22,6 +22,7 @@ private:
 	int dineroAcumulado;
 public:
 	Juego(int id, ConfiguracionJuego conf);
+	int getId();
 	int getCosto();
 	void setCosto(int costo);
 	bool estaLleno();

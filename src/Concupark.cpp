@@ -20,7 +20,28 @@ using namespace std;
 
 int main() {
 	string archivo ( "/home/kevin/Escritorio/ConcuPark/src/concuPark.conf" );
-	MemoriaCompartida<Juego> memoria;
+
+	Parser parser;
+	ConfiguracionParque confParque = parser.parse(archivo);
+
+	Parque parque(confParque);
+	parque.abrirParque();
+
+
+	//// TEST PARSER ////
+	/**list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
+	list<ConfiguracionPersona> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
+	for (list<ConfiguracionJuego>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
+		cout << (*it).getCapacidad() << " " << (*it).getCosto() << endl;
+	}
+	for (list<ConfiguracionPersona>::iterator it=lista_configuracion_personas.begin(); it != lista_configuracion_personas.end(); ++it) {
+		cout << (*it).getSaldoInicial() << endl;
+	}*/
+	//////////
+
+
+	//// TEST MEMORIA COMPARTIDA ////
+	/**MemoriaCompartida<Juego> memoria;
 	int estadoMemoria = memoria.crear ( archivo,'R', 5 );
 
 	if ( estadoMemoria == SHM_OK ) {
@@ -28,28 +49,7 @@ int main() {
 	} else {
 		cout << "ERROR memoria compartida" << endl;
 	}
-
-	Parser parser;
-	ConfiguracionParque confParque = parser.parse(archivo);
-
-	Parque parque(confParque);
-
-
-
-	//// TEST PARSER ////
-	list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
-	list<ConfiguracionPersona> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
-	for (list<ConfiguracionJuego>::iterator it=lista_configuracion_juegos.begin(); it != lista_configuracion_juegos.end(); ++it) {
-		cout << (*it).getCapacidad() << " " << (*it).getCosto() << endl;
-	}
-	for (list<ConfiguracionPersona>::iterator it=lista_configuracion_personas.begin(); it != lista_configuracion_personas.end(); ++it) {
-		cout << (*it).getSaldoInicial() << endl;
-	}
-	//////////
-
-
-	//// TEST MEMORIA COMPARTIDA ////
-	/**Juego juego;
+	Juego juego;
 	juego.setCosto(1);
 	memoria.escribir(juego, 0);
 

@@ -5,6 +5,8 @@
  *      Author: juan
  */
 
+#include <iostream>
+
 #include "ListaDeJuegos.h"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
@@ -13,12 +15,16 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
 	//que proc1 lea, proc2 lea, modifiquen y escriban los dos sobreescribiendo el
 	//Cambio del que escribio primero.
 
-	string archivo ( "../concuPark.conf" );
-	MemoriaCompartida<Juego> memoria;
+	string archivo ( "src/concuPark.conf" );
 	this->cantidad = juegos.size();
-	int estadoMemoria = memoria.crear ( archivo,'R', juegos.size());
-	for (int index = 0; index < juegos.size(); index++){
-		memoria.escribir(juegos[index], index);
+	int estadoMemoria = mem.crear ( archivo,'R', juegos.size());
+	if ( estadoMemoria == SHM_OK ) {
+		cout << "memoria compartida OK" << endl;
+	} else {
+		cout << "ERROR memoria compartida" << endl;
+	}
+	for (unsigned int index = 0; index < juegos.size(); index++){
+		mem.escribir(juegos[index], index);
 	}
 }
 

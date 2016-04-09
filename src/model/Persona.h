@@ -19,7 +19,6 @@ using namespace std;
 class Persona {
 private:
 	int id;
-	int presupuestoInicial;
 	int presupuestoRestante;
 	IteradorListaDeJuegos itListaJuegos;
 	void jugar(Juego juego);

@@ -10,7 +10,7 @@
 
 Persona::Persona(int id, ConfiguracionPersona conf, ListaDeJuegos* juegos): itListaJuegos(juegos) {
 	this->id = id;
-	this->presupuestoInicial = conf.getSaldoInicial();
+	this->presupuestoRestante = conf.getSaldoInicial();
 }
 
 Persona::~Persona() {
@@ -36,7 +36,7 @@ bool Persona::puedePagarAlgunJuego(){
 }
 
 void Persona::salirDelParque(){
-	cout << "Persona " << id << ": salgo del parque..." << endl;
+	cout << "Persona " << id << ": salio del parque" << endl;
 	exit (0);
 
 }
@@ -45,6 +45,9 @@ void Persona::jugar(Juego juego){
     //TODO
 	//wait
 	//sleep
+	cout << "Persona " << id << ": Entro al juego " << juego.getId() << endl;
+	this->pagarEntrada(&juego);
+	cout << "Persona " << id << ": Salio del juego " << juego.getId() << endl;
 	//signal
 }
 
@@ -59,9 +62,9 @@ void Persona::init(){
 }
 
 void Persona::entrarAlParque(){
-	cout << "Persona " << id << ": Entro al parque..." << endl;
+	cout << "Persona " << id << ": Entro al parque" << endl;
 	//Si no puede pagar niguno sale
-	while (!this->puedePagarAlgunJuego()) {
+	while (this->puedePagarAlgunJuego()) {
 		this->jugarSiguienteJuego();
 	}
 }

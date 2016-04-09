@@ -26,6 +26,10 @@ int Juego::getCosto(){
 	return costo;
 }
 
+int Juego::getId(){
+	return id;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
