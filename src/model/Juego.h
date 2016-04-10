@@ -24,6 +24,7 @@ public:
 	Juego(int id, ConfiguracionJuego conf);
 	int getId();
 	int getCosto();
+	int getDuracion();
 	void setCosto(int costo);
 	bool estaLleno();
 	void cobrarEntrada();

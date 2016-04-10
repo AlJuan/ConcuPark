@@ -30,6 +30,10 @@ int Juego::getId(){
 	return id;
 }
 
+int Juego::getDuracion() {
+	return duracion;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }

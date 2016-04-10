@@ -6,6 +6,8 @@
  */
 
 #include "Persona.h"
+#include "../log/Logger.h"
+
 #include <unistd.h>
 
 Persona::Persona(int id, ConfiguracionPersona conf, ListaDeJuegos* juegos): itListaJuegos(juegos) {
@@ -36,18 +38,17 @@ bool Persona::puedePagarAlgunJuego(){
 }
 
 void Persona::salirDelParque(){
-	cout << "Persona " << id << ": salio del parque" << endl;
+	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " salio del parque");
 	exit (0);
 
 }
 
 void Persona::jugar(Juego juego){
-    //TODO
 	//wait
-	//sleep
-	cout << "Persona " << id << ": Entro al juego " << juego.getId() << endl;
+	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " entro al juego " + to_string(juego.getId()));
 	this->pagarEntrada(&juego);
-	cout << "Persona " << id << ": Salio del juego " << juego.getId() << endl;
+	sleep(juego.getDuracion());
+	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " salio del juego " + to_string(juego.getId()));
 	//signal
 }
 
@@ -62,7 +63,7 @@ void Persona::init(){
 }
 
 void Persona::entrarAlParque(){
-	cout << "Persona " << id << ": Entro al parque" << endl;
+	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " entro al parque");
 	//Si no puede pagar niguno sale
 	while (this->puedePagarAlgunJuego()) {
 		this->jugarSiguienteJuego();

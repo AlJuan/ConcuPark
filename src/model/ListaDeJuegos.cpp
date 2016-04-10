@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "ListaDeJuegos.h"
+#include "../log/Logger.h"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
 
@@ -19,9 +20,9 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
 	this->cantidad = juegos.size();
 	int estadoMemoria = mem.crear ( archivo,'R', juegos.size());
 	if ( estadoMemoria == SHM_OK ) {
-		cout << "memoria compartida OK" << endl;
+		Logger::insert(Logger::TYPE_DEBUG, "Memoria compartida creada correctamente");
 	} else {
-		cout << "ERROR memoria compartida" << endl;
+		Logger::insert(Logger::TYPE_ERROR, "Error al crear memoria compartida");
 	}
 	for (unsigned int index = 0; index < juegos.size(); index++){
 		mem.escribir(juegos[index], index);
