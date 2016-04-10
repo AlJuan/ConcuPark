@@ -21,8 +21,8 @@ public:
 	IteradorListaDeJuegos(ListaDeJuegos* ptr);
 	ListaDeJuegos* getLista();
 	Juego getSiguienteJuego();
-	//Hace un update del juego en la posicion actual del iterador
-	void updateJuegoActual(Juego juego);
+	void entrarJuegoActual();
+	void salirJuegoActual();
 	bool esElUltimoJuego();
 	virtual ~IteradorListaDeJuegos();
 };

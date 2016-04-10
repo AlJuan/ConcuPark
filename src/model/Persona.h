@@ -13,12 +13,12 @@
 #include "Juego.h"
 #include <iostream>
 #include <stdlib.h>
+#include "Serializable.h"
 
 using namespace std;
 
-class Persona {
+class Persona : public Serializable{
 private:
-	int id;
 	int presupuestoRestante;
 	IteradorListaDeJuegos itListaJuegos;
 	void jugar(Juego juego);
@@ -30,8 +30,9 @@ public:
 	void init();
 	void entrarAlParque();
 	void jugarSiguienteJuego();
-	void pagarEntrada(Juego* juego);
+	void pagarEntrada(Juego juego);
 	void salirDelParque();
+	string toString();
 	virtual ~Persona();
 };
 

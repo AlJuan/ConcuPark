@@ -9,6 +9,7 @@
 #include "../log/Logger.h"
 
 #include <unistd.h>
+#include <sstream>
 
 Persona::Persona(int id, ConfiguracionPersona conf, ListaDeJuegos* juegos): itListaJuegos(juegos) {
 	this->id = id;
@@ -38,18 +39,22 @@ bool Persona::puedePagarAlgunJuego(){
 }
 
 void Persona::salirDelParque(){
-	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " salio del parque");
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del parque");
 	exit (0);
 
 }
 
 void Persona::jugar(Juego juego){
-	//wait
-	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " entro al juego " + to_string(juego.getId()));
-	this->pagarEntrada(&juego);
+    //TODO
+	this->itListaJuegos.entrarJuegoActual();
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al " + juego.toString());
+
 	sleep(juego.getDuracion());
-	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " salio del juego " + to_string(juego.getId()));
-	//signal
+
+	this->itListaJuegos.salirJuegoActual();
+
+	this->pagarEntrada(juego);
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del " + juego.toString());
 }
 
 void Persona::init(){
@@ -63,7 +68,7 @@ void Persona::init(){
 }
 
 void Persona::entrarAlParque(){
-	Logger::insert(Logger::TYPE_INFO, "Persona " + to_string(id) + " entro al parque");
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al parque");
 	//Si no puede pagar niguno sale
 	while (this->puedePagarAlgunJuego()) {
 		this->jugarSiguienteJuego();
@@ -74,7 +79,12 @@ bool Persona::puedePagarJuego(Juego juego){
 	return this->presupuestoRestante >= juego.getCosto();
 }
 
-void Persona::pagarEntrada(Juego* juego){
-	this->presupuestoRestante -= juego->getCosto();
-	juego->cobrarEntrada();
+void Persona::pagarEntrada(Juego juego){
+	this->presupuestoRestante -= juego.getCosto();
+}
+
+string Persona::toString(){
+	stringstream stream;
+	stream << "Persona "<< id;
+	return stream.str();
 }

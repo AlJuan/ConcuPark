@@ -8,11 +8,13 @@
 #ifndef MODEL_JUEGO_H_
 #define MODEL_JUEGO_H_
 
+#include "Serializable.h"
+
 class ConfiguracionJuego;
 
 using namespace std;
 
-class Juego {
+class Juego : public Serializable{
 private:
 	int id;
 	int capacidad;
@@ -28,6 +30,9 @@ public:
 	void setCosto(int costo);
 	bool estaLleno();
 	void cobrarEntrada();
+	void aumentarPersonasJugando();
+	void disminuirPersonasJugando();
+	string toString();
 	virtual ~Juego();
 };
 

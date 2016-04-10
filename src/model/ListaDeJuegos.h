@@ -18,11 +18,19 @@ class ListaDeJuegos {
 private:
 	MemoriaCompartida<Juego> mem;
 	int cantidad;
+	void setJuego(Juego juego, int posicion);
+	Juego tomarJuego(int posicion);
+	void liberarJuego(int posicion);
 public:
 	ListaDeJuegos(vector<Juego> vec);
+	/*
+	 * getJuego se usa para solo lectura!
+	 */
 	Juego getJuego(int posicion);
+	void entrarJuego(int posicion);
+	void salirJuego(int posicion);
 	int getCantidad();
-	void setJuego(Juego juego, int posicion);
+
 	virtual ~ListaDeJuegos();
 };
 

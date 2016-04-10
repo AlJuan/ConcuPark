@@ -8,6 +8,7 @@
 #include "Juego.h"
 
 #include "../configuraciones/ConfiguracionJuego.h"
+#include <sstream>
 
 Juego::Juego(int id, ConfiguracionJuego conf) {
 	this->id = id;
@@ -30,10 +31,6 @@ int Juego::getId(){
 	return id;
 }
 
-int Juego::getDuracion() {
-	return duracion;
-}
-
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
@@ -44,5 +41,22 @@ bool Juego::estaLleno(){
 
 void Juego::cobrarEntrada(){
 	dineroAcumulado += this->costo;
+}
+
+int Juego::getDuracion(){
+	return duracion;
+}
+
+void Juego::aumentarPersonasJugando(){
+	this->personasJugando++;
+}
+void Juego::disminuirPersonasJugando(){
+	this->personasJugando--;
+}
+
+string Juego::toString(){
+	stringstream stream;
+	stream << "Juego "<< id;
+	return stream.str();
 }
 

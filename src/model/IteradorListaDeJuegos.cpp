@@ -19,10 +19,6 @@ bool IteradorListaDeJuegos::esElUltimoJuego() {
 	return (this->posicion == this->lista->getCantidad() - 1);
 }
 
-void IteradorListaDeJuegos::updateJuegoActual(Juego juego){
-	this->lista->setJuego(juego, this->posicion);
-}
-
 Juego IteradorListaDeJuegos::getSiguienteJuego(){
 	this->posicion++;
 	if (this->posicion == this->lista->getCantidad()){
@@ -35,3 +31,9 @@ ListaDeJuegos* IteradorListaDeJuegos::getLista(){
 	return this->lista;
 }
 
+void IteradorListaDeJuegos::entrarJuegoActual(){
+	this->lista->entrarJuego(this->posicion);
+}
+void IteradorListaDeJuegos::salirJuegoActual(){
+	this->lista->salirJuego(this->posicion);
+}

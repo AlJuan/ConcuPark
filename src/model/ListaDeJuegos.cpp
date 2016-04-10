@@ -45,3 +45,25 @@ void ListaDeJuegos::setJuego(Juego juego, int posicion) {
 	this->mem.escribir(juego, posicion);
 }
 
+void ListaDeJuegos::entrarJuego(int posicion){
+	Juego juego = this->tomarJuego(posicion);
+	juego.aumentarPersonasJugando();
+	juego.cobrarEntrada();
+	this->mem.escribir(juego, posicion);
+	this->liberarJuego(posicion);
+}
+void ListaDeJuegos::salirJuego(int posicion){
+	Juego juego = this->tomarJuego(posicion);
+	juego.disminuirPersonasJugando();
+	this->liberarJuego(posicion);
+}
+
+Juego ListaDeJuegos::tomarJuego(int posicion) {
+	//TODO ACA TIENE QUE ESTAR EL WAIT DEL SEMAFORO
+	return this->mem.leer(posicion);
+
+}
+void ListaDeJuegos::liberarJuego(int posicion){
+	//TODO ESTE ES EL SIGNAL DEL SEMAFORO
+
+}

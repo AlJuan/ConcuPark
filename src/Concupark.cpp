@@ -14,19 +14,21 @@
 #include "model/Juego.h"
 #include "parser/Parser.h"
 #include "configuraciones/ConfiguracionParque.h"
-
+#include "log/Logger.h"
 
 using namespace std;
 
 int main() {
-	string archivo ( "/home/kevin/Escritorio/ConcuPark/src/concuPark.conf" );
+	string archivo ( "/home/juan/git/ConcuPark/src/concuPark.conf" );
 
 	Parser parser;
 	ConfiguracionParque confParque = parser.parse(archivo);
 
 	Parque parque(confParque);
 	parque.abrirParque();
-
+	//Pongo este sleep porque los juegos tardan un rato. si este proc termina antes entonces no se ve el result de las personas
+	sleep(30);
+	Logger::insert(Logger::TYPE_INFO, "TERMINO");
 
 	//// TEST PARSER ////
 	/**list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
