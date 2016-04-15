@@ -45,7 +45,6 @@ void Persona::salirDelParque(){
 }
 
 void Persona::jugar(Juego juego){
-    //TODO
 	this->itListaJuegos.entrarJuegoActual();
 	Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al " + juego.toString());
 

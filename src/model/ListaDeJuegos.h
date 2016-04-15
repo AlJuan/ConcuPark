@@ -21,6 +21,7 @@ private:
 	void setJuego(Juego juego, int posicion);
 	Juego tomarJuego(int posicion);
 	void liberarJuego(int posicion);
+	void esperarAQueSeLlene(Juego juego);
 public:
 	ListaDeJuegos(vector<Juego> vec);
 	/*
