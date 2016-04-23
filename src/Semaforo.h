@@ -15,11 +15,11 @@ private:
 	int inicializar () const;
 
 public:
-	Semaforo ( const std::string& nombre,const int valorInicial );
+	Semaforo ( const std::string& nombre,const int valorInicial, int cant );
 	~Semaforo();
 
-	int p () const; // decrementa
-	int v () const; // incrementa
+	int p (int pos) const; // decrementa
+	int v (int pos) const; // incrementa
 	void eliminar () const;
 };
 
