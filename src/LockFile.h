@@ -5,9 +5,7 @@
 #include <fcntl.h>
 #include <string>
 
-using namespace std;
-
-template <class T> class LockFile {
+class LockFile {
 
 private:
 	struct flock fl;
