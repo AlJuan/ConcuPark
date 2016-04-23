@@ -19,14 +19,14 @@ class ListaDeJuegos {
 private:
 	MemoriaCompartida<Juego> mem;
 	int cantidad;
-	LockFile lock;
+	LockFile* lock;
 	void setJuego(Juego juego, int posicion);
 	Juego tomarJuego(int posicion);
 	void liberarJuego(int posicion);
 	void esperarAQueSeLlene(Juego juego);
 
 public:
-	ListaDeJuegos(vector<Juego> vec, LockFile lock);
+	ListaDeJuegos(vector<Juego> vec);
 	/*
 	 * getJuego se usa para solo lectura!
 	 */

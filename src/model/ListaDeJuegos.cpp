@@ -10,13 +10,11 @@
 #include "ListaDeJuegos.h"
 #include "../log/Logger.h"
 
-ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos, LockFile lock) {
-
-	//TODO:Hay que hacer un lock o mutex o algo en esta clase porque puede suceder
-	//que proc1 lea, proc2 lea, modifiquen y escriban los dos sobreescribiendo el
-	//Cambio del que escribio primero.
+ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
 
 	string archivo ( "src/concuPark.conf" );
+
+	LockFile* lock = new LockFile(archivo);
 	this->lock = lock;
 	this->cantidad = juegos.size();
 	int estadoMemoria = mem.crear ( archivo,'R', juegos.size());
@@ -31,6 +29,8 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos, LockFile lock) {
 }
 
 ListaDeJuegos::~ListaDeJuegos() {
+	delete this->lock;
+
 }
 
 Juego ListaDeJuegos::getJuego(int posicion) {
@@ -74,11 +74,11 @@ void ListaDeJuegos::salirJuego(int posicion){
 }
 
 Juego ListaDeJuegos::tomarJuego(int posicion) {
-	//TODO ACA TIENE QUE ESTAR EL WAIT DEL SEMAFORO
+	this->lock->tomarLock(posicion);
 	return this->mem.leer(posicion);
 
 }
 void ListaDeJuegos::liberarJuego(int posicion){
-	//TODO ESTE ES EL SIGNAL DEL SEMAFORO
+	this->lock->liberarLock(posicion);
 
 }
