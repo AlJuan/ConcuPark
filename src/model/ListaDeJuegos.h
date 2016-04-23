@@ -12,18 +12,21 @@ using namespace std;
 
 #include "Juego.h"
 #include "../MemoriaCompartida.h"
+#include "../LockFile.h"
 #include <vector>
 
 class ListaDeJuegos {
 private:
 	MemoriaCompartida<Juego> mem;
 	int cantidad;
+	LockFile lock;
 	void setJuego(Juego juego, int posicion);
 	Juego tomarJuego(int posicion);
 	void liberarJuego(int posicion);
 	void esperarAQueSeLlene(Juego juego);
+
 public:
-	ListaDeJuegos(vector<Juego> vec);
+	ListaDeJuegos(vector<Juego> vec, LockFile lock);
 	/*
 	 * getJuego se usa para solo lectura!
 	 */

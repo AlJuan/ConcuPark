@@ -10,13 +10,14 @@
 #include "ListaDeJuegos.h"
 #include "../log/Logger.h"
 
-ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
+ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos, LockFile lock) {
 
 	//TODO:Hay que hacer un lock o mutex o algo en esta clase porque puede suceder
 	//que proc1 lea, proc2 lea, modifiquen y escriban los dos sobreescribiendo el
 	//Cambio del que escribio primero.
 
 	string archivo ( "src/concuPark.conf" );
+	this->lock = lock;
 	this->cantidad = juegos.size();
 	int estadoMemoria = mem.crear ( archivo,'R', juegos.size());
 	if ( estadoMemoria == SHM_OK ) {
@@ -55,12 +56,14 @@ void ListaDeJuegos::entrarJuego(int posicion){
 }
 
 void ListaDeJuegos::esperarAQueSeLlene(Juego juego){
-	if (juego.estaLleno()){}
+	if (juego.estaLleno()){
 		//Signal del semaforo que espera a que se llene
 		//Tambien se puede poner el wait aca en vez de que lo haga cada proceso y
 		//tirar el signal post sleep
-	else{}
+	} else {
 		//wait del semaforo que espera a que se llene
+	}
+
 
 }
 
