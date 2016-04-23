@@ -20,6 +20,7 @@ private:
 	int capacidad;
 	int duracion;
 	int personasJugando;
+	int personasEnFila;
 	int costo;
 	int dineroAcumulado;
 public:
@@ -28,10 +29,12 @@ public:
 	int getCosto();
 	int getDuracion();
 	void setCosto(int costo);
-	bool estaLleno();
+	bool haySuficientePersonasParaJugar();
 	void cobrarEntrada();
 	void aumentarPersonasJugando();
 	void disminuirPersonasJugando();
+	void aumentarPersonasEnFila();
+	void disminuirPersonasEnFila();
 	string toString();
 	virtual ~Juego();
 };

@@ -20,7 +20,9 @@ class ListaDeJuegos {
 private:
 	MemoriaCompartida<Juego> mem;
 	LockFile lock;
-	Semaforo sem;
+	Semaforo semaforoFila;
+	Semaforo semaforoJuego;
+	LockFile lockJuego;
 	int cantidad;
 	void setJuego(Juego juego, int posicion);
 	Juego tomarJuego(int posicion);

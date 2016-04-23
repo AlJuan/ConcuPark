@@ -11,9 +11,11 @@
 #include "../log/Logger.h"
 
 #define ARCHIVO "src/concuPark.conf"
+#define ARCHIVO_JUEGO "src/concuPark.conf"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : lock(ARCHIVO),
-	sem(ARCHIVO, 0, juegos.size()), cantidad(juegos.size()){
+	semaforoFila(ARCHIVO, 0, juegos.size()), semaforoFila(ARCHIVO_JUEGO, 0, juegos.size()),
+	lockJuego(ARCHIVO_JUEGO), cantidad(juegos.size()){
 
 	int estadoMemoria = mem.crear ( ARCHIVO,'R', juegos.size());
 	if ( estadoMemoria == SHM_OK ) {
@@ -45,7 +47,7 @@ void ListaDeJuegos::setJuego(Juego juego, int posicion) {
 
 void ListaDeJuegos::entrarJuego(int posicion){
 	Juego juego = this->tomarJuego(posicion);
-	juego.aumentarPersonasJugando();
+	juego.aumentarPersonasEnFila();
 	juego.cobrarEntrada();
 	this->mem.escribir(juego, posicion);
 	this->liberarJuego(posicion);
@@ -53,12 +55,20 @@ void ListaDeJuegos::entrarJuego(int posicion){
 }
 
 void ListaDeJuegos::esperarAQueSeLlene(Juego juego, int posicion){
-	if (juego.estaLleno())
+	if (juego.haySuficientePersonasParaJugar()){
 		//Signal
-		this->sem.v(posicion);
-	else
+		this->semaforoFila.v(posicion);
+		this->lockJuego.tomarLock(posicion);
+		sleep(juego.getDuracion());
+		this->lockJuego.liberarLock(posicion);
+		this->semaforoJuego.v(posicion);
+
+	}else{
 		//Wait
-		this->sem.p(posicion);
+		this->semaforoFila.p(posicion);
+		// ACA ENTRO AL JUEGO
+		this->semaforoJuego.p(posicion);
+	}
 }
 
 void ListaDeJuegos::salirJuego(int posicion){

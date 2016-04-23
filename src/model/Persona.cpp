@@ -49,8 +49,6 @@ void Persona::jugar(Juego juego){
 	this->itListaJuegos.entrarJuegoActual();
 	Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al " + juego.toString());
 
-	sleep(juego.getDuracion());
-
 	this->itListaJuegos.salirJuegoActual();
 
 	this->pagarEntrada(juego);

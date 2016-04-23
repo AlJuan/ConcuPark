@@ -15,6 +15,7 @@ Juego::Juego(int id, ConfiguracionJuego conf) {
 	this->capacidad = conf.getCapacidad();
 	this->duracion = conf.getDuracion();
 	this->personasJugando = 0;
+	this->personasEnFila = 0;
 	this->dineroAcumulado = 0;
 	this->costo = conf.getCosto();
 }
@@ -35,8 +36,8 @@ Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
 
-bool Juego::estaLleno(){
-	return this->capacidad == this->personasJugando;
+bool Juego::haySuficientePersonasParaJugar(){
+	return this->capacidad <= this->personasEnFila;
 }
 
 void Juego::cobrarEntrada(){
@@ -52,6 +53,13 @@ void Juego::aumentarPersonasJugando(){
 }
 void Juego::disminuirPersonasJugando(){
 	this->personasJugando--;
+}
+
+void Juego::aumentarPersonasEnFila(){
+	this->personasEnFila++;
+}
+void Juego::disminuirPersonasEnFila(){
+	this->personasEnFila--;
 }
 
 string Juego::toString(){
