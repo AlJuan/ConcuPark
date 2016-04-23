@@ -10,14 +10,12 @@
 #include "ListaDeJuegos.h"
 #include "../log/Logger.h"
 
-ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
+#define ARCHIVO "src/concuPark.conf"
 
-	string archivo ( "src/concuPark.conf" );
+ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : lock(ARCHIVO),
+	sem(ARCHIVO, 0, juegos.size()), cantidad(juegos.size()){
 
-	LockFile* lock = new LockFile(archivo);
-	this->lock = lock;
-	this->cantidad = juegos.size();
-	int estadoMemoria = mem.crear ( archivo,'R', juegos.size());
+	int estadoMemoria = mem.crear ( ARCHIVO,'R', juegos.size());
 	if ( estadoMemoria == SHM_OK ) {
 		Logger::insert(Logger::TYPE_DEBUG, "Memoria compartida creada correctamente");
 	} else {
@@ -29,7 +27,6 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) {
 }
 
 ListaDeJuegos::~ListaDeJuegos() {
-	delete this->lock;
 
 }
 
@@ -52,19 +49,16 @@ void ListaDeJuegos::entrarJuego(int posicion){
 	juego.cobrarEntrada();
 	this->mem.escribir(juego, posicion);
 	this->liberarJuego(posicion);
-	this->esperarAQueSeLlene(juego);
+	this->esperarAQueSeLlene(juego, posicion);
 }
 
-void ListaDeJuegos::esperarAQueSeLlene(Juego juego){
-	if (juego.estaLleno()){
-		//Signal del semaforo que espera a que se llene
-		//Tambien se puede poner el wait aca en vez de que lo haga cada proceso y
-		//tirar el signal post sleep
-	} else {
-		//wait del semaforo que espera a que se llene
-	}
-
-
+void ListaDeJuegos::esperarAQueSeLlene(Juego juego, int posicion){
+	if (juego.estaLleno())
+		//Signal
+		this->sem.v(posicion);
+	else
+		//Wait
+		this->sem.p(posicion);
 }
 
 void ListaDeJuegos::salirJuego(int posicion){
@@ -74,11 +68,11 @@ void ListaDeJuegos::salirJuego(int posicion){
 }
 
 Juego ListaDeJuegos::tomarJuego(int posicion) {
-	this->lock->tomarLock(posicion);
+	this->lock.tomarLock(posicion);
 	return this->mem.leer(posicion);
 
 }
 void ListaDeJuegos::liberarJuego(int posicion){
-	this->lock->liberarLock(posicion);
+	this->lock.liberarLock(posicion);
 
 }
