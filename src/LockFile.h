@@ -5,7 +5,9 @@
 #include <fcntl.h>
 #include <string>
 
-class LockFile {
+using namespace std;
+
+template <class T> class LockFile {
 
 private:
 	struct flock fl;
@@ -16,8 +18,8 @@ public:
 	LockFile ( const std::string nombre );
 	~LockFile();
 
-	int tomarLock ();
-	int liberarLock ();
+	int tomarLock (int pos);
+	int liberarLock (int pos);
 	ssize_t escribir ( const void* buffer,const ssize_t buffsize ) const;
 };
 
