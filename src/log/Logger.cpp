@@ -7,6 +7,8 @@
 
 #include "Logger.h"
 
+#include <ctime>
+
 string Logger::TYPE_INFO = "INFO";
 string Logger::TYPE_DEBUG = "DEBUG";
 string Logger::TYPE_ERROR = "ERROR";
@@ -14,9 +16,22 @@ string Logger::TYPE_ERROR = "ERROR";
 void Logger::insert(string typeLog, string message){
 	ofstream logFile;
 	logFile.open("concupark.log", ios::out | ios::app | ios::binary);
-	logFile << typeLog << ": " << message << endl;
+
+	logFile << "["<< Logger::getDatetime() << "]" << typeLog << ": " << message << endl;
 	logFile.close();
 }
+
+string Logger::getDatetime() {
+	time_t  timev;
+	struct tm * timeinfo;
+	time(&timev);
+	char buffer[80];
+	timeinfo = localtime(&timev);
+	strftime(buffer,80,"%Y-%m-%d %I:%M:%S",timeinfo);
+
+	return string(buffer);
+}
+
 
 Logger::~Logger() {
 	// TODO Auto-generated destructor stub
