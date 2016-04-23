@@ -17,6 +17,8 @@ class Parser {
 private:
 	void parsePersonas(ConfiguracionParque* confParque, string presupuestosStr);
 	void parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
+	string obtenerValores(string linea, char delimitador);
+
 public:
 	Parser();
 	vector<string> split(const string s, char delim);

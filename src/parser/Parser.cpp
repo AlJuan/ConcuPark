@@ -15,6 +15,9 @@
 
 using namespace std;
 
+#define DELIMITADOR_VALORES ','
+#define DELIMITADOR_LABEL ':'
+
 Parser::Parser() {
 	// TODO Auto-generated constructor stub
 
@@ -39,11 +42,15 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 }
 
+string Parser::obtenerValores(string linea, char delimitador) {
+	vector<string> lineaSpliteada = split(linea, delimitador);
+	return lineaSpliteada[lineaSpliteada.size() - 1];
+}
 
 void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr) {
-	vector<string> duraciones = split(duracionesStr, ',');
-	vector<string> capacidades = split(capacidadesStr, ',');
-	vector<string> costos = split(costosStr, ',');
+	vector<string> duraciones = split(obtenerValores(duracionesStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
+	vector<string> capacidades = split(obtenerValores(capacidadesStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
+	vector<string> costos = split(obtenerValores(costosStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
 
 	for (unsigned int i = 0; i < capacidades.size(); i++) {
 		ConfiguracionJuego conf (atoi(capacidades[i].c_str()), atoi(costos[i].c_str()), atoi(duraciones[i].c_str()));
@@ -53,7 +60,7 @@ void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr,
 }
 
 void Parser::parsePersonas(ConfiguracionParque* confParque, string presupuestosStr) {
-	vector<string> presupuestos = split(presupuestosStr, ',');
+	vector<string> presupuestos = split(obtenerValores(presupuestosStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
 
 	for ( unsigned int i = 0; i < presupuestos.size(); i++) {
 		ConfiguracionPersona conf (atoi(presupuestos[i].c_str()));
