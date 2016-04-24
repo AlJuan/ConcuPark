@@ -31,8 +31,8 @@ ListaDeJuegos* IteradorListaDeJuegos::getLista(){
 	return this->lista;
 }
 
-void IteradorListaDeJuegos::entrarJuegoActual(){
-	this->lista->entrarJuego(this->posicion);
+void IteradorListaDeJuegos::entrarJuegoActual(string persona){
+	this->lista->entrarJuego(this->posicion, persona);
 }
 void IteradorListaDeJuegos::salirJuegoActual(){
 	this->lista->salirJuego(this->posicion);

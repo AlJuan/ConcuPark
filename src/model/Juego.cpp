@@ -32,12 +32,16 @@ int Juego::getId(){
 	return id;
 }
 
+int Juego::getCapacidad() {
+	return capacidad;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
 
 bool Juego::haySuficientePersonasParaJugar(){
-	return this->capacidad <= this->personasEnFila;
+	return personasEnFila > 0 && (personasEnFila % capacidad) == 0;
 }
 
 void Juego::cobrarEntrada(){

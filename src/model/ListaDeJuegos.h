@@ -25,7 +25,7 @@ private:
 	LockFile lockJuego;
 	int cantidad;
 
-	void esperarAQueSeLlene(Juego juego, int posicion);
+	void esperarAQueSeLlene(Juego juego, int posicion, string persona);
 
 public:
 	ListaDeJuegos(vector<Juego> vec);
@@ -33,7 +33,7 @@ public:
 	 * getJuego se usa para solo lectura!
 	 */
 	Juego getJuego(int posicion);
-	void entrarJuego(int posicion);
+	void entrarJuego(int posicion, string persona);
 	void salirJuego(int posicion);
 	int getCantidad();
 

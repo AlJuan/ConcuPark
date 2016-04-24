@@ -21,7 +21,7 @@ public:
 	IteradorListaDeJuegos(ListaDeJuegos* ptr);
 	ListaDeJuegos* getLista();
 	Juego getSiguienteJuego();
-	void entrarJuegoActual();
+	void entrarJuegoActual(string persona);
 	void salirJuegoActual();
 	bool esElUltimoJuego();
 	virtual ~IteradorListaDeJuegos();

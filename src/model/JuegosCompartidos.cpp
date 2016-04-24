@@ -35,13 +35,20 @@ void JuegosCompartidos::liberarJuego(int posicion){
 	this->lock.liberarLock(posicion);
 }
 
-Juego JuegosCompartidos::entrarJuego(int posicion){
+Juego JuegosCompartidos::entrarFila(int posicion){
 	Juego juego = this->tomarJuego(posicion);
 	juego.aumentarPersonasEnFila();
 	juego.cobrarEntrada();
 	this->mem.escribir(juego, posicion);
 	this->liberarJuego(posicion);
 	return juego;
+}
+
+void JuegosCompartidos::salirFila(int posicion){
+	Juego juego = this->tomarJuego(posicion);
+	juego.disminuirPersonasEnFila();
+	this->mem.escribir(juego, posicion);
+	this->liberarJuego(posicion);
 }
 
 Juego JuegosCompartidos::getJuego(int posicion) {

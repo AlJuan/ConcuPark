@@ -27,7 +27,8 @@ private:
 public:
 	JuegosCompartidos(vector<Juego> juegos);
 	virtual ~JuegosCompartidos();
-	Juego entrarJuego(int posicion);
+	Juego entrarFila(int posicion);
+	void salirFila(int posicion);
 	void salirJuego(int posicion);
 	/*
 	 * getJuego se usa para solo lectura!
