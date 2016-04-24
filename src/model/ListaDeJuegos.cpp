@@ -36,12 +36,12 @@ void ListaDeJuegos::entrarJuego(int posicion, string persona){
 }
 
 void ListaDeJuegos::esperarAQueSeLlene(Juego juego, int posicion, string persona){
+	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
 	if (juego.haySuficientePersonasParaJugar()){
 		this->semaforoJuego.wait(posicion);
 		for (int i = 0; i < juego.getCapacidad(); i++)
 			this->semaforoFila.signal(posicion);
 	}
-	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
 	this->semaforoFila.wait(posicion);
 	this->juegosCompartidos.salirFila(posicion);
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
