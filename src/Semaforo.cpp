@@ -1,8 +1,8 @@
 #include "Semaforo.h"
 
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cant ):valorInicial(valorInicial) {
-	key_t clave = ftok ( nombre.c_str(),'a' );
-	this->id = semget ( clave, cant,0666 | IPC_CREAT );
+	key_t clave = ftok ( nombre.c_str(), 'a' );
+	this->id = semget ( IPC_PRIVATE, cant,0666 | IPC_CREAT );
 	this->cant = cant;
 	this->inicializar ();
 }
@@ -20,7 +20,11 @@ int Semaforo :: inicializar () const {
 
 	semnum init;
 	init.val = this->valorInicial;
-	int resultado = semctl ( this->id,0,SETVAL,init );
+	int resultado = 0;
+	for (int x = 0; x < cant; x++){
+		resultado = semctl ( this->id,x,SETVAL,init );
+		if (resultado < 0) return resultado;
+	}
 	return resultado;
 }
 
@@ -31,8 +35,10 @@ int Semaforo :: wait (int pos) const {
 	operacion.sem_num = pos;	// numero de semaforo
 	operacion.sem_op  = -1;	// restar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
+	//El ultimo param de semop es la longitud del segundo parametro
+	//en este caso siempre es uno
+	int resultado = semop ( this->id,&operacion, 1 );
 
-	int resultado = semop ( this->id,&operacion, cant );
 	return resultado;
 }
 
@@ -43,8 +49,9 @@ int Semaforo :: signal (int pos) const {
 	operacion.sem_num = pos;	// numero de semaforo
 	operacion.sem_op  = 1;	// sumar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
-
-	int resultado = semop ( this->id,&operacion, cant );
+	//El ultimo param de semop es la longitud del segundo parametro
+	//en este caso siempre es uno
+	int resultado = semop ( this->id,&operacion, 1 );
 	return resultado;
 }
 
