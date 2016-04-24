@@ -3,7 +3,7 @@
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cant ):valorInicial(valorInicial) {
 	key_t clave = ftok ( nombre.c_str(),'a' );
 	this->id = semget ( clave, cant,0666 | IPC_CREAT );
-
+	this->cant = cant;
 	this->inicializar ();
 }
 
@@ -24,27 +24,27 @@ int Semaforo :: inicializar () const {
 	return resultado;
 }
 
-int Semaforo :: p (int pos) const {
+int Semaforo :: wait (int pos) const {
 
 	struct sembuf operacion;
 
-	operacion.sem_num = 0;	// numero de semaforo
+	operacion.sem_num = pos;	// numero de semaforo
 	operacion.sem_op  = -1;	// restar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
 
-	int resultado = semop ( this->id,&operacion, pos );
+	int resultado = semop ( this->id,&operacion, cant );
 	return resultado;
 }
 
-int Semaforo :: v (int pos) const {
+int Semaforo :: signal (int pos) const {
 
 	struct sembuf operacion;
 
-	operacion.sem_num = 0;	// numero de semaforo
+	operacion.sem_num = pos;	// numero de semaforo
 	operacion.sem_op  = 1;	// sumar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
 
-	int resultado = semop ( this->id,&operacion, pos );
+	int resultado = semop ( this->id,&operacion, cant );
 	return resultado;
 }
 

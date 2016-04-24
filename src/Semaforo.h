@@ -11,15 +11,15 @@ class Semaforo {
 private:
 	int id;
 	int valorInicial;
-
+	int cant;
 	int inicializar () const;
 
 public:
 	Semaforo ( const std::string& nombre,const int valorInicial, int cant );
 	~Semaforo();
 
-	int p (int pos) const; // decrementa
-	int v (int pos) const; // incrementa
+	int wait (int pos) const; // decrementa
+	int signal (int pos) const; // incrementa
 	void eliminar () const;
 };
 

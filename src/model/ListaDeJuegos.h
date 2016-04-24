@@ -11,6 +11,7 @@
 using namespace std;
 
 #include "Juego.h"
+#include "JuegosCompartidos.h"
 #include "../MemoriaCompartida.h"
 #include "../LockFile.h"
 #include "../Semaforo.h"
@@ -18,15 +19,12 @@ using namespace std;
 
 class ListaDeJuegos {
 private:
-	MemoriaCompartida<Juego> mem;
-	LockFile lock;
+	JuegosCompartidos juegosCompartidos;
 	Semaforo semaforoFila;
 	Semaforo semaforoJuego;
 	LockFile lockJuego;
 	int cantidad;
-	void setJuego(Juego juego, int posicion);
-	Juego tomarJuego(int posicion);
-	void liberarJuego(int posicion);
+
 	void esperarAQueSeLlene(Juego juego, int posicion);
 
 public:
