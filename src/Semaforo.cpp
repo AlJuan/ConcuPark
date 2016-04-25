@@ -1,9 +1,8 @@
 #include "Semaforo.h"
 
-Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cant ):valorInicial(valorInicial) {
+Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial):valorInicial(valorInicial) {
 	key_t clave = ftok ( nombre.c_str(), 'a' );
-	this->id = semget ( IPC_PRIVATE, cant,0666 | IPC_CREAT );
-	this->cant = cant;
+	this->id = semget ( IPC_PRIVATE, 1,0666 | IPC_CREAT );
 	this->inicializar ();
 }
 
@@ -20,11 +19,7 @@ int Semaforo :: inicializar () const {
 
 	semnum init;
 	init.val = this->valorInicial;
-	int resultado = 0;
-	for (int x = 0; x < cant; x++){
-		resultado = semctl ( this->id,x,SETVAL,init );
-		if (resultado < 0) return resultado;
-	}
+	int resultado = semctl ( this->id,0,SETVAL,init );
 	return resultado;
 }
 
@@ -32,7 +27,7 @@ int Semaforo :: wait (int pos) const {
 
 	struct sembuf operacion;
 
-	operacion.sem_num = pos;	// numero de semaforo
+	operacion.sem_num = 0;	// numero de semaforo
 	operacion.sem_op  = -1;	// restar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
 	//El ultimo param de semop es la longitud del segundo parametro
@@ -46,7 +41,7 @@ int Semaforo :: signal (int pos) const {
 
 	struct sembuf operacion;
 
-	operacion.sem_num = pos;	// numero de semaforo
+	operacion.sem_num = 0;	// numero de semaforo
 	operacion.sem_op  = 1;	// sumar 1 al semaforo
 	operacion.sem_flg = SEM_UNDO;
 	//El ultimo param de semop es la longitud del segundo parametro
