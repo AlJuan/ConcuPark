@@ -10,11 +10,11 @@
 #include "ListaDeJuegos.h"
 #include "../log/Logger.h"
 
-#define ARCHIVO "src/concuPark.conf"
+#define ARCHIVO "src/Concupark.cpp"
 #define ARCHIVO_JUEGO "src/concuPark.conf"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
-	semaforoFila(ARCHIVO, 0), semaforoJuego(ARCHIVO_JUEGO, 1),
+	semaforoFila(ARCHIVO, 0), semaforoJuego(ARCHIVO_JUEGO, 0),
 	lockJuego(ARCHIVO_JUEGO), cantidad(juegos.size()){
 }
 
@@ -51,9 +51,9 @@ void ListaDeJuegos::jugar(Juego juego, int posicion, string persona){
 void ListaDeJuegos::ejecutarJuego(Juego juego, int posicion, string persona){
 	this->lockJuego.tomarLock(posicion);
 	//tomo lock por si hay alguien jugando, hay que esperar q termine
+	Logger::insert(Logger::TYPE_DEBUG, "Comienza ejecucion del " + juego.toString());
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
 	this->sacarPersonasDeLaFila(juego.getCapacidad() - 1, posicion);
-	Logger::insert(Logger::TYPE_DEBUG, persona + " comienza ejecucion del " + juego.toString());
 	sleep(juego.getDuracion());
 	this->sacarPersonasDelJuego(juego.getCapacidad() - 1, posicion);
 	//En ambos casos se sacan capacidad - 1 porque uno es el proceso

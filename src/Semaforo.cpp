@@ -43,7 +43,7 @@ int Semaforo :: signal (int pos) const {
 
 	operacion.sem_num = 0;	// numero de semaforo
 	operacion.sem_op  = 1;	// sumar 1 al semaforo
-	operacion.sem_flg = SEM_UNDO;
+	operacion.sem_flg = 0;
 	//El ultimo param de semop es la longitud del segundo parametro
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );

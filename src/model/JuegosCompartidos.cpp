@@ -7,7 +7,7 @@
 
 #include "JuegosCompartidos.h"
 
-#define ARCHIVO "src/concuPark.conf"
+#define ARCHIVO "src/Concupark.cpp"
 
 JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO) {
 	int estadoMemoria = mem.crear( ARCHIVO, 'R', juegos.size());
