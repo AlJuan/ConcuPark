@@ -14,7 +14,7 @@
 #define ARCHIVO_JUEGO "src/concuPark.conf"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
-	semaforoFila(ARCHIVO, 0), semaforoJuego(ARCHIVO_JUEGO, 0),
+	semaforoFila(ARCHIVO, 0, juegos.size()), semaforoJuego(ARCHIVO_JUEGO, 0, juegos.size()),
 	lockJuego(ARCHIVO_JUEGO), cantidad(juegos.size()){
 }
 
