@@ -2,7 +2,7 @@
 
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial):valorInicial(valorInicial) {
 	key_t clave = ftok ( nombre.c_str(), 'a' );
-	this->id = semget ( IPC_PRIVATE, 1,0666 | IPC_CREAT );
+	this->id = semget ( clave, 1,0666 | IPC_CREAT );
 	this->inicializar ();
 }
 

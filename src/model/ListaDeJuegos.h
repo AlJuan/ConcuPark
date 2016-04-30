@@ -25,7 +25,10 @@ private:
 	LockFile lockJuego;
 	int cantidad;
 
-	void esperarAQueSeLlene(Juego juego, int posicion, string persona);
+	void jugar(Juego juego, int posicion, string persona);
+	void ejecutarJuego(Juego juego, int posicion, string persona);
+	void sacarPersonasDelJuego(int cantidad, int posicion);
+	void sacarPersonasDeLaFila(int cantidad, int posicion);
 
 public:
 	ListaDeJuegos(vector<Juego> vec);

@@ -32,39 +32,45 @@ int ListaDeJuegos::getCantidad(){
 
 void ListaDeJuegos::entrarJuego(int posicion, string persona){
 	Juego juego = this->juegosCompartidos.entrarFila(posicion);
-	this->esperarAQueSeLlene(juego, posicion, persona);
+	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
+	this->jugar(juego, posicion, persona);
 }
 
-void ListaDeJuegos::esperarAQueSeLlene(Juego juego, int posicion, string persona){
-	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
-	if (juego.haySuficientePersonasParaJugar()){
-		this->semaforoJuego.wait(posicion);
-		for (int i = 0; i < juego.getCapacidad(); i++)
-			this->semaforoFila.signal(posicion);
-	}
-	this->semaforoFila.wait(posicion);
-	this->juegosCompartidos.salirFila(posicion);
-	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
-	sleep(juego.getDuracion());
-	if (juego.haySuficientePersonasParaJugar())
-		this->semaforoJuego.signal(posicion);
-
-
-	//this->semaforoJuego.signal(posicion);
-	/**if (juego.haySuficientePersonasParaJugar()){
-		//Signal
-		this->semaforoFila.signal(posicion);//liberar tantos procesos de la fila como capacidad tenga el juego
-		this->lockJuego.tomarLock(posicion);
-		sleep(juego.getDuracion());
-		this->lockJuego.liberarLock(posicion);
-		this->semaforoJuego.signal(posicion);//liberar tantos procesos del juego como capacidad tenga el juego
-
+void ListaDeJuegos::jugar(Juego juego, int posicion, string persona){
+	if (juego.haySuficientesPersonasParaJugar()){
+		this->ejecutarJuego(juego, posicion, persona);
 	}else{
-		//Wait
+		//TODO si soy el primero en llegar, hay que hacer un timed wait
 		this->semaforoFila.wait(posicion);
-		// ACA ENTRO AL JUEGO
+		Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
 		this->semaforoJuego.wait(posicion);
-	}**/
+	}
+	Logger::insert(Logger::TYPE_INFO, persona + " salio del " + juego.toString());
+}
+
+void ListaDeJuegos::ejecutarJuego(Juego juego, int posicion, string persona){
+	this->lockJuego.tomarLock(posicion);
+	//tomo lock por si hay alguien jugando, hay que esperar q termine
+	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
+	this->sacarPersonasDeLaFila(juego.getCapacidad() - 1, posicion);
+	Logger::insert(Logger::TYPE_DEBUG, persona + " comienza ejecucion del " + juego.toString());
+	sleep(juego.getDuracion());
+	this->sacarPersonasDelJuego(juego.getCapacidad() - 1, posicion);
+	//En ambos casos se sacan capacidad - 1 porque uno es el proceso
+	//que esta haciendo esto
+	this->lockJuego.liberarLock(posicion);
+}
+
+void ListaDeJuegos::sacarPersonasDeLaFila(int cantidad, int posicion){
+	for (int i = 0; i < cantidad; i++)
+		//liberar tantos procesos de la fila como capacidad tenga el juego
+		this->semaforoFila.signal(posicion);
+}
+
+void ListaDeJuegos::sacarPersonasDelJuego(int cantidad, int posicion){
+	for (int i = 0; i < cantidad; i++)
+		//liberar tantos procesos del juego como capacidad tenga el juego
+		this->semaforoJuego.signal(posicion);
 }
 
 void ListaDeJuegos::salirJuego(int posicion){

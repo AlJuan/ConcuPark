@@ -45,14 +45,11 @@ void Persona::salirDelParque(){
 }
 
 void Persona::jugar(Juego juego){
-	//Logger::insert(Logger::TYPE_INFO, this->toString() + " entro a la cola del " + juego.toString());
 	this->itListaJuegos.entrarJuegoActual(this->toString());
-	//Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al " + juego.toString());
 
 	this->itListaJuegos.salirJuegoActual();
 
 	this->pagarEntrada(juego);
-	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del " + juego.toString());
 }
 
 void Persona::init(){

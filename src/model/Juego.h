@@ -30,7 +30,7 @@ public:
 	int getDuracion();
 	int getCapacidad();
 	void setCosto(int costo);
-	bool haySuficientePersonasParaJugar();
+	bool haySuficientesPersonasParaJugar();
 	void cobrarEntrada();
 	void aumentarPersonasJugando();
 	void disminuirPersonasJugando();

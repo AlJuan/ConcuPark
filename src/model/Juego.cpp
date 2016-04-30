@@ -40,7 +40,7 @@ Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
 
-bool Juego::haySuficientePersonasParaJugar(){
+bool Juego::haySuficientesPersonasParaJugar(){
 	return personasEnFila > 0 && (personasEnFila % capacidad) == 0;
 }
 
