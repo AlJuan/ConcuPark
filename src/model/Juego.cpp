@@ -36,6 +36,10 @@ int Juego::getCapacidad() {
 	return capacidad;
 }
 
+int Juego::getDineroAcumulado() {
+	return dineroAcumulado;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }

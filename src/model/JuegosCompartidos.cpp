@@ -24,6 +24,7 @@ JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO) {
 }
 
 JuegosCompartidos::~JuegosCompartidos() {
+	mem.liberar();
 }
 
 Juego JuegosCompartidos::tomarJuego(int posicion) {

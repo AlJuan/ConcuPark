@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include <sstream>
 #include <unistd.h>
 #include <sys/wait.h>
 
@@ -34,7 +35,10 @@ int main() {
 	for (int i = 0; i < cantPersonas; i++) {
 		wait(&status);
 	}
+	stringstream ss;
+	ss << parque.obtenerRecaudacionCaja();
 	Logger::insert(Logger::TYPE_INFO, "TERMINO");
+	Logger::insert(Logger::TYPE_INFO, "Recaudacion total: $" + ss.str());
 
 	//// TEST PARSER ////
 	/**list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();

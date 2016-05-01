@@ -19,6 +19,8 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
 }
 
 ListaDeJuegos::~ListaDeJuegos() {
+	semaforoFila.eliminar();
+	semaforoJuego.eliminar();
 
 }
 

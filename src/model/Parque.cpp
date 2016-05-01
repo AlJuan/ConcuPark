@@ -41,7 +41,20 @@ void Parque::abrirParque(){
 	}
 }
 
+int Parque::obtenerRecaudacionCaja() {
+	int recaudacion = 0;
+	for (int i = 0; i < juegos->getCantidad(); i++) {
+		Juego j = juegos->getJuego(i);
+		recaudacion += j.getDineroAcumulado();
+	}
+	return recaudacion;
+}
+
 Parque::~Parque() {
-	// TODO Auto-generated destructor stub
+	delete juegos;
+	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
+		Persona* p = (*it);
+		delete p;
+	}
 }
 

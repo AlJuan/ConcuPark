@@ -54,5 +54,6 @@ int Semaforo :: signal (int pos) const {
 }
 
 void Semaforo :: eliminar () const {
-	semctl ( this->id,0,IPC_RMID );
+	for (int i = 0; i < cantidad; i++)
+		semctl ( this->id, i, IPC_RMID );
 }

@@ -29,6 +29,7 @@ public:
 	int getCosto();
 	int getDuracion();
 	int getCapacidad();
+	int getDineroAcumulado();
 	void setCosto(int costo);
 	bool haySuficientesPersonasParaJugar();
 	void cobrarEntrada();

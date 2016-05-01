@@ -40,13 +40,13 @@ bool Persona::puedePagarAlgunJuego(){
 
 void Persona::salirDelParque(){
 	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del parque");
+	delete itListaJuegos.getLista();
 	exit (0);
 
 }
 
 void Persona::jugar(Juego juego){
 	this->itListaJuegos.entrarJuegoActual(this->toString());
-
 	this->itListaJuegos.salirJuegoActual();
 
 	this->pagarEntrada(juego);
