@@ -27,7 +27,7 @@ private:
 	bool puedePagarAlgunJuego();
 public:
 	Persona( int id, ConfiguracionPersona conf, ListaDeJuegos* juegos);
-	void init();
+	void ejecutar();
 	void entrarAlParque();
 	void jugarSiguienteJuego();
 	void pagarEntrada(Juego juego);

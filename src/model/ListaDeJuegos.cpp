@@ -11,7 +11,7 @@
 #include "../log/Logger.h"
 
 #define ARCHIVO "src/Concupark.cpp"
-#define ARCHIVO_JUEGO "src/concuPark.conf"
+#define ARCHIVO_JUEGO "concuPark.conf"
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
 	semaforoFila(ARCHIVO, 0, juegos.size()), semaforoJuego(ARCHIVO_JUEGO, 0, juegos.size()),

@@ -37,7 +37,14 @@ void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
 void Parque::abrirParque(){
 	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
 		Persona* p = (*it);
-		p->init();
+		int id = fork();
+		if (id == 0) {
+			//Si es el hijo comienza su ejecucion
+			p->ejecutar();
+			delete p;
+			exit (0);
+		}
+		//Si es el padre no hace nada...
 	}
 }
 

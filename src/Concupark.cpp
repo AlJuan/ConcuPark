@@ -22,10 +22,10 @@
 using namespace std;
 
 int main() {
-	string archivo ( "src/concuPark.conf" );
-
+	string archivo ( "concuPark.conf" );
 	Parser parser;
 	ConfiguracionParque confParque = parser.parse(archivo);
+
 	Logger::insert(Logger::TYPE_INFO, "EMPEZO");
 	Parque parque(confParque);
 	parque.abrirParque();
@@ -57,7 +57,7 @@ int main() {
 	 *
 	 * */
 
-	/*Semaforo sem ("src/concuPark.conf", 0, 2); //Si dejo la funcion FTOK como generador de clave y pongo cant > 1 se rompe todo
+	/*Semaforo sem ("concuPark.conf", 0, 2); //Si dejo la funcion FTOK como generador de clave y pongo cant > 1 se rompe todo
 												//No se que tiene IPC_PRIVATE que hace que esto funcione, no se si funconaria en el juego
 												//La cosa es que tendriamos que hacer un semaforo por proceso. Tampoco se si lo podemos usar
 												//hay que mandar mail!
