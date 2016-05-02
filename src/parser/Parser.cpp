@@ -44,7 +44,7 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 string Parser::obtenerValores(string linea, char delimitador) {
 	vector<string> lineaSpliteada = split(linea, delimitador);
-	return lineaSpliteada[lineaSpliteada.size() - 1];
+	return lineaSpliteada.size() > 1? lineaSpliteada[lineaSpliteada.size() - 1] : "";
 }
 
 void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr) {

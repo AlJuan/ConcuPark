@@ -31,7 +31,6 @@ void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
 		personas.push_back(persona);
 		id ++;
 	}
-
 }
 
 void Parque::abrirParque(){
