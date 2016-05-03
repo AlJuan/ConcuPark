@@ -4,7 +4,9 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/types.h>
+#include <time.h>
 #include <string>
+#include <cerrno>
 
 class Semaforo {
 
@@ -17,7 +19,7 @@ private:
 public:
 	Semaforo ( const std::string& nombre,const int valorInicial, int cantidad);
 	~Semaforo();
-
+	int timedWait(int pos, int seconds);
 	int wait (int pos) const; // decrementa
 	int signal (int pos) const; // incrementa
 	void eliminar () const;

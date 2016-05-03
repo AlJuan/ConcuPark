@@ -40,7 +40,6 @@ void Parque::abrirParque(){
 		if (id == 0) {
 			//Si es el hijo comienza su ejecucion
 			p->ejecutar();
-			delete p;
 			exit (0);
 		}
 		//Si es el padre no hace nada...

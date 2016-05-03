@@ -26,6 +26,19 @@ int Semaforo :: inicializar () const {
 	return resultado;
 }
 
+int Semaforo :: timedWait (int pos, int seconds) {
+	struct sembuf operacion;
+	operacion.sem_num = pos;	// numero de semaforo
+	operacion.sem_op  = -1;	// restar 1 al semaforo
+	operacion.sem_flg = 0;
+	struct timespec time;
+	time.tv_sec = seconds;
+	time.tv_nsec = 0;
+	int resultado = semtimedop ( this->id,&operacion, 1, &time );
+
+	return (resultado < 0)? errno : resultado;
+}
+
 int Semaforo :: wait (int pos) const {
 
 	struct sembuf operacion;

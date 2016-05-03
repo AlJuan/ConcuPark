@@ -57,17 +57,17 @@ int main() {
 	 *
 	 * */
 
-	/*Semaforo sem ("concuPark.conf", 0, 2); //Si dejo la funcion FTOK como generador de clave y pongo cant > 1 se rompe todo
-												//No se que tiene IPC_PRIVATE que hace que esto funcione, no se si funconaria en el juego
-												//La cosa es que tendriamos que hacer un semaforo por proceso. Tampoco se si lo podemos usar
-												//hay que mandar mail!
+/*	Semaforo sem ("concuPark.conf", 0, 2);
+
 	int id = fork();
 	if (id == 0) {
 		int id2 = fork();
 		if (id2 == 0) {
+			stringstream ss;
 			cout << "PROCESO HIJO DEL HIJO WAIT" << endl;
-			sem.wait(0);
-			cout << "PROCESO HIJO DEL HIJO DESBLOQUEADO" << endl;
+			int err = sem.timedWait(0, 5);
+			ss << err;
+			cout << "PROCESO HIJO DEL HIJO DESBLOQUEADO" + ss.str()  << endl;
 		} else {
 			cout << "PROCESO HIJO WAIT" << endl;
 			sem.wait(1);
@@ -75,7 +75,7 @@ int main() {
 		}
 	} else {
 		//Proceso padre
-		sleep(5);
+		sleep(30);
 		cout << "PROCESO PADRE SIGNAL AL HIJO DEL HIJO" << endl;
 		sem.signal(0);
 		sleep(5);
