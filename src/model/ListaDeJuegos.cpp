@@ -67,14 +67,13 @@ void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 	//tomo lock por si hay alguien jugando, hay que esperar q termine
 	this->lockJuego.tomarLock(posicion);
 	Juego juego = this->juegosCompartidos.getJuego(posicion);
+	//Se resta uno porque uno de los procesos es este
 	int cantidadPersonasAJugar = juego.getCantidadListosParaJugar() - 1;
 	Logger::insert(Logger::TYPE_DEBUG, "Comienza ejecucion del " + juego.toString());
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
 	this->sacarPersonasDeLaFila(cantidadPersonasAJugar, posicion);
 	sleep(juego.getDuracion());
 	this->sacarPersonasDelJuego(cantidadPersonasAJugar, posicion);
-	//En ambos casos se sacan capacidad - 1 porque uno es el proceso
-	//que esta haciendo esto
 	this->lockJuego.liberarLock(posicion);
 }
 
