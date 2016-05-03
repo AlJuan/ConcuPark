@@ -40,6 +40,10 @@ int Juego::getDineroAcumulado() {
 	return dineroAcumulado;
 }
 
+int Juego::getCantidadPersonasEnFila() {
+	return personasEnFila;
+}
+
 Juego::~Juego() {
 	// TODO Auto-generated destructor stub
 }
@@ -59,15 +63,19 @@ int Juego::getDuracion(){
 void Juego::aumentarPersonasJugando(){
 	this->personasJugando++;
 }
-void Juego::disminuirPersonasJugando(){
-	this->personasJugando--;
+void Juego::disminuirPersonasJugando(int cantidad){
+	this->personasJugando-= cantidad;
+}
+
+int Juego::getCantidadListosParaJugar(){
+	return (personasEnFila < capacidad)? personasEnFila : capacidad;
 }
 
 void Juego::aumentarPersonasEnFila(){
 	this->personasEnFila++;
 }
-void Juego::disminuirPersonasEnFila(){
-	this->personasEnFila--;
+void Juego::disminuirPersonasEnFila(int cantidad){
+	this->personasEnFila -= cantidad;
 }
 
 string Juego::toString(){

@@ -29,14 +29,16 @@ public:
 	int getCosto();
 	int getDuracion();
 	int getCapacidad();
+	int getCantidadPersonasEnFila();
 	int getDineroAcumulado();
+	int getCantidadListosParaJugar();
 	void setCosto(int costo);
 	bool haySuficientesPersonasParaJugar();
 	void cobrarEntrada();
 	void aumentarPersonasJugando();
-	void disminuirPersonasJugando();
+	void disminuirPersonasJugando(int cantidad);
 	void aumentarPersonasEnFila();
-	void disminuirPersonasEnFila();
+	void disminuirPersonasEnFila(int cantidad);
 	string toString();
 	virtual ~Juego();
 };

@@ -1,4 +1,5 @@
 #include "Semaforo.h"
+#include "log/Logger.h"
 
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cantidad):valorInicial(valorInicial), cantidad(cantidad) {
 	key_t clave = ftok ( nombre.c_str(), 'a' );
@@ -20,9 +21,11 @@ int Semaforo :: inicializar () const {
 	semnum init;
 	init.val = this->valorInicial;
 	int resultado;
-	for (int i = 0; i < this->cantidad; i++)
+	for (int i = 0; i < this->cantidad; i++){
 		//TODO manejo de errores!
 		resultado = semctl ( this->id,i,SETVAL,init );
+	}
+
 	return resultado;
 }
 
@@ -50,7 +53,7 @@ int Semaforo :: wait (int pos) const {
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );
 
-	return resultado;
+	return (resultado < 0)? errno : resultado;
 }
 
 int Semaforo :: signal (int pos) const {

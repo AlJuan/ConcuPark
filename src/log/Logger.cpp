@@ -8,6 +8,7 @@
 #include "Logger.h"
 
 #include <ctime>
+#include <sstream>
 
 string Logger::TYPE_INFO = "INFO";
 string Logger::TYPE_DEBUG = "DEBUG";
@@ -19,6 +20,12 @@ void Logger::insert(string typeLog, string message){
 
 	logFile << "["<< Logger::getDatetime() << "]" << typeLog << ": " << message << endl;
 	logFile.close();
+}
+
+void Logger::insert(string typeLog, int cod){
+	stringstream ss;
+	ss << cod;
+	insert(typeLog, ss.str());
 }
 
 string Logger::getDatetime() {

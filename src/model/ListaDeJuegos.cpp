@@ -12,6 +12,7 @@
 
 #define ARCHIVO "src/Concupark.cpp"
 #define ARCHIVO_JUEGO "concuPark.conf"
+#define ESPERAR_JUEGO 60 //1min
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
 	semaforoFila(ARCHIVO, 0, juegos.size()), semaforoJuego(ARCHIVO_JUEGO, 0, juegos.size()),
@@ -21,7 +22,6 @@ ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
 ListaDeJuegos::~ListaDeJuegos() {
 	semaforoFila.eliminar();
 	semaforoJuego.eliminar();
-
 }
 
 Juego ListaDeJuegos::getJuego(int posicion) {
@@ -38,43 +38,57 @@ void ListaDeJuegos::entrarJuego(int posicion, string persona){
 	this->jugar(juego, posicion, persona);
 }
 
+void ListaDeJuegos::esperarJuego(int posicion, string persona, string juego) {
+	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego);
+	this->semaforoJuego.wait(posicion);
+}
+
+void ListaDeJuegos::esperarCola(int posicion, string persona, string juego) {
+	int err = this->semaforoFila.timedWait(posicion, ESPERAR_JUEGO);
+	if (err == EAGAIN){
+		//tiro timeout
+		this->ejecutarJuego(posicion, persona);
+	}else{
+		esperarJuego(posicion, persona, juego);
+	}
+
+}
+
 void ListaDeJuegos::jugar(Juego juego, int posicion, string persona){
 	if (juego.haySuficientesPersonasParaJugar()){
-		this->ejecutarJuego(juego, posicion, persona);
+		this->ejecutarJuego(posicion, persona);
 	}else{
-		//TODO si soy el primero en llegar, hay que hacer un timed wait
-		this->semaforoFila.wait(posicion);
-		Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
-		this->semaforoJuego.wait(posicion);
+		esperarCola(posicion, persona, juego.toString());
 	}
 	Logger::insert(Logger::TYPE_INFO, persona + " salio del " + juego.toString());
 }
 
-void ListaDeJuegos::ejecutarJuego(Juego juego, int posicion, string persona){
-	this->lockJuego.tomarLock(posicion);
+void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 	//tomo lock por si hay alguien jugando, hay que esperar q termine
+	this->lockJuego.tomarLock(posicion);
+	Juego juego = this->juegosCompartidos.getJuego(posicion);
+	int cantidadPersonasAJugar = juego.getCantidadListosParaJugar() - 1;
 	Logger::insert(Logger::TYPE_DEBUG, "Comienza ejecucion del " + juego.toString());
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
-	this->sacarPersonasDeLaFila(juego.getCapacidad() - 1, posicion);
+	this->sacarPersonasDeLaFila(cantidadPersonasAJugar, posicion);
 	sleep(juego.getDuracion());
-	this->sacarPersonasDelJuego(juego.getCapacidad() - 1, posicion);
+	this->sacarPersonasDelJuego(cantidadPersonasAJugar, posicion);
 	//En ambos casos se sacan capacidad - 1 porque uno es el proceso
 	//que esta haciendo esto
 	this->lockJuego.liberarLock(posicion);
 }
 
 void ListaDeJuegos::sacarPersonasDeLaFila(int cantidad, int posicion){
+	this->juegosCompartidos.salirFila(posicion, cantidad);
 	for (int i = 0; i < cantidad; i++)
-		//liberar tantos procesos de la fila como capacidad tenga el juego
 		this->semaforoFila.signal(posicion);
 }
 
 void ListaDeJuegos::sacarPersonasDelJuego(int cantidad, int posicion){
 	for (int i = 0; i < cantidad; i++)
-		//liberar tantos procesos del juego como capacidad tenga el juego
 		this->semaforoJuego.signal(posicion);
 }
 
 void ListaDeJuegos::salirJuego(int posicion){
-	this->juegosCompartidos.salirJuego(posicion);
+	this->juegosCompartidos.salirJuego(posicion, 1);
 }

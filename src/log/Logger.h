@@ -17,6 +17,7 @@ using namespace std;
 class Logger {
 public:
 	static void insert(string typeLog, string message);
+	static void insert(string typeLog, int cod);
 	static string getDatetime();
 	virtual ~Logger();
 

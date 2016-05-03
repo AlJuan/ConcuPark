@@ -45,9 +45,9 @@ Juego JuegosCompartidos::entrarFila(int posicion){
 	return juego;
 }
 
-void JuegosCompartidos::salirFila(int posicion){
+void JuegosCompartidos::salirFila(int posicion, int cantidad){
 	Juego juego = this->tomarJuego(posicion);
-	juego.disminuirPersonasEnFila();
+	juego.disminuirPersonasEnFila(cantidad);
 	this->mem.escribir(juego, posicion);
 	this->liberarJuego(posicion);
 }
@@ -56,9 +56,9 @@ Juego JuegosCompartidos::getJuego(int posicion) {
     return this->mem.leer(posicion);
 }
 
-void JuegosCompartidos::salirJuego(int posicion){
+void JuegosCompartidos::salirJuego(int posicion, int cantidad){
 	Juego juego = this->tomarJuego(posicion);
-	juego.disminuirPersonasJugando();
+	juego.disminuirPersonasJugando(cantidad);
 	this->liberarJuego(posicion);
 }
 

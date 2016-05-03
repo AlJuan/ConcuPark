@@ -26,9 +26,11 @@ private:
 	int cantidad;
 
 	void jugar(Juego juego, int posicion, string persona);
-	void ejecutarJuego(Juego juego, int posicion, string persona);
+	void ejecutarJuego(int posicion, string persona);
 	void sacarPersonasDelJuego(int cantidad, int posicion);
 	void sacarPersonasDeLaFila(int cantidad, int posicion);
+	void esperarJuego(int posicion, string persona, string juego);
+	void esperarCola(int posicion, string persona, string juego);
 
 public:
 	ListaDeJuegos(vector<Juego> vec);
