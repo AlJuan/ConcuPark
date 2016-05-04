@@ -10,8 +10,6 @@
 Parque::Parque(ConfiguracionParque configuracionParque) {
 	crearJuegos(configuracionParque.getConfiguracionesJuegos());
 	crearPersonas(configuracionParque.getConfiguracionesPersonas());
-
-
 }
 
 void Parque::crearJuegos(list<ConfiguracionJuego> configuracionJuegos) {
@@ -33,17 +31,18 @@ void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
 	}
 }
 
-void Parque::abrirParque(){
+int Parque::abrirParque(){
 	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
 		Persona* p = (*it);
 		int id = fork();
 		if (id == 0) {
 			//Si es el hijo comienza su ejecucion
 			p->ejecutar();
-			exit (0);
+			return id;
 		}
 		//Si es el padre no hace nada...
 	}
+	return getpid();
 }
 
 int Parque::obtenerRecaudacionCaja() {

@@ -5,6 +5,7 @@ Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int can
 	key_t clave = ftok ( nombre.c_str(), 'a' );
 	this->id = semget ( clave, cantidad,0666 | IPC_CREAT );
 	this->inicializar ();
+	this->pidCreador = getpid();
 }
 
 Semaforo::~Semaforo() {
@@ -70,6 +71,9 @@ int Semaforo :: signal (int pos) const {
 }
 
 void Semaforo :: eliminar () const {
-	for (int i = 0; i < cantidad; i++)
-		semctl ( this->id, i, IPC_RMID );
+	if (this->pidCreador == getpid()){
+		for (int i = 0; i < cantidad; i++)
+			semctl ( this->id, i, IPC_RMID );
+	}
+
 }
