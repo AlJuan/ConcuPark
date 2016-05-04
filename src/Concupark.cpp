@@ -28,18 +28,19 @@ int main() {
 
 	Logger::insert(Logger::TYPE_INFO, "EMPEZO");
 	Parque parque(confParque);
-	parque.abrirParque();
-
-	int cantPersonas = confParque.getConfiguracionesPersonas().size();
-	int status;
-	for (int i = 0; i < cantPersonas; i++) {
-		wait(&status);
+	int pid = parque.abrirParque();
+	if (pid != 0){
+		//TODO algo mas copado que devolver este pid fake
+		int cantPersonas = confParque.getConfiguracionesPersonas().size();
+		int status;
+		for (int i = 0; i < cantPersonas; i++) {
+			wait(&status);
+		}
+		stringstream ss;
+		ss << parque.obtenerRecaudacionCaja();
+		Logger::insert(Logger::TYPE_INFO, "TERMINO");
+		Logger::insert(Logger::TYPE_INFO, "Recaudacion total: $" + ss.str());
 	}
-	stringstream ss;
-	ss << parque.obtenerRecaudacionCaja();
-	Logger::insert(Logger::TYPE_INFO, "TERMINO");
-	Logger::insert(Logger::TYPE_INFO, "Recaudacion total: $" + ss.str());
-
 	//// TEST PARSER ////
 	/**list<ConfiguracionJuego> lista_configuracion_juegos = confParque.getConfiguracionesJuegos();
 	list<ConfiguracionPersona> lista_configuracion_personas = confParque.getConfiguracionesPersonas();
@@ -83,7 +84,16 @@ int main() {
 		sem.signal(1);
 	}*/
 
-
+	/*
+	 *
+	 * Prueba de memleaks con exit
+	 *
+	 * */
+	/*int id = fork();
+	if (id == 0) {
+		string str ("hola vengo a leakear memoria");
+		exit(0);
+	}*/
 
 
 

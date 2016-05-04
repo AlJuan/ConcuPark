@@ -5,6 +5,7 @@
 #include <sys/sem.h>
 #include <sys/types.h>
 #include <time.h>
+#include <unistd.h>
 #include <string>
 #include <cerrno>
 
@@ -14,6 +15,7 @@ private:
 	int id;
 	int valorInicial;
 	int cantidad;
+	pid_t pidCreador;
 	int inicializar () const;
 
 public:
