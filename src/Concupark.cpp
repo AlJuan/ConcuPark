@@ -11,12 +11,12 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include "MemoriaCompartida.h"
-#include "Semaforo.h"
 #include "model/Parque.h"
 #include "model/Juego.h"
 #include "parser/Parser.h"
 #include "configuraciones/ConfiguracionParque.h"
+#include "ipc/MemoriaCompartida.h"
+#include "ipc/Semaforo.h"
 #include "log/Logger.h"
 
 using namespace std;

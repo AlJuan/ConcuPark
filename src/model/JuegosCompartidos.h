@@ -10,9 +10,10 @@
 
 #include "../log/Logger.h"
 #include <vector>
+
+#include "../ipc/LockFile.h"
+#include "../ipc/MemoriaCompartida.h"
 #include "Juego.h"
-#include "../MemoriaCompartida.h"
-#include "../LockFile.h"
 
 using namespace std;
 

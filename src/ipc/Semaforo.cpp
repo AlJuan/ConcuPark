@@ -1,5 +1,6 @@
 #include "Semaforo.h"
-#include "log/Logger.h"
+
+#include "../log/Logger.h"
 
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cantidad):valorInicial(valorInicial), cantidad(cantidad) {
 	key_t clave = ftok ( nombre.c_str(), 'a' );

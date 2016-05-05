@@ -1,5 +1,5 @@
-#ifndef LOCKFILE_H_
-#define LOCKFILE_H_
+#ifndef IPC_LOCKFILE_H_
+#define IPC_LOCKFILE_H_
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -21,4 +21,4 @@ public:
 	ssize_t escribir ( const void* buffer,const ssize_t buffsize ) const;
 };
 
-#endif /* LOCKFILE_H_ */
+#endif /* IPC_LOCKFILE_H_ */

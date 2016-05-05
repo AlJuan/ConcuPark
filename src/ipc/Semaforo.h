@@ -1,5 +1,5 @@
-#ifndef SEMAFORO_H_
-#define SEMAFORO_H_
+#ifndef IPC_SEMAFORO_H_
+#define IPC_SEMAFORO_H_
 
 #include <sys/ipc.h>
 #include <sys/sem.h>
@@ -27,4 +27,4 @@ public:
 	void eliminar () const;
 };
 
-#endif /* SEMAFORO_H_ */
+#endif /* IPC_SEMAFORO_H_ */

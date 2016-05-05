@@ -12,9 +12,8 @@ using namespace std;
 
 #include "Juego.h"
 #include "JuegosCompartidos.h"
-#include "../MemoriaCompartida.h"
-#include "../LockFile.h"
-#include "../Semaforo.h"
+#include "../ipc/LockFile.h"
+#include "../ipc/Semaforo.h"
 #include <vector>
 
 class ListaDeJuegos {
