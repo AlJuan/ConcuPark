@@ -1,5 +1,5 @@
-#ifndef MEMORIACOMPARTIDA_H_
-#define MEMORIACOMPARTIDA_H_
+#ifndef IPC_MEMORIACOMPARTIDA_H_
+#define IPC_MEMORIACOMPARTIDA_H_
 
 #define SHM_OK			 0
 #define	ERROR_FTOK		-1
@@ -89,4 +89,4 @@ template <class T> int MemoriaCompartida<T> :: cantidadProcesosAdosados () const
 }
 
 
-#endif /* MEMORIACOMPARTIDA_H_ */
+#endif /* IPC_MEMORIACOMPARTIDA_H_ */
