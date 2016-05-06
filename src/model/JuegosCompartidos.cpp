@@ -7,10 +7,11 @@
 
 #include "JuegosCompartidos.h"
 
-#define ARCHIVO "src/Concupark.cpp"
+#define ARCHIVO_MEMORIA "memoriacompartida"
+#define ARCHIVO_LOCK "concuPark.conf"
 
-JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO) {
-	int estadoMemoria = mem.crear( ARCHIVO, 'R', juegos.size());
+JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO_LOCK) {
+	int estadoMemoria = mem.crear( ARCHIVO_MEMORIA, 'R', juegos.size());
 	if (estadoMemoria == SHM_OK) {
 		Logger::insert(Logger::TYPE_DEBUG,
 				"Memoria compartida creada correctamente");
@@ -24,7 +25,7 @@ JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO) {
 }
 
 JuegosCompartidos::~JuegosCompartidos() {
-	mem.liberar();
+	mem.liberar(ARCHIVO_MEMORIA);
 }
 
 Juego JuegosCompartidos::tomarJuego(int posicion) {

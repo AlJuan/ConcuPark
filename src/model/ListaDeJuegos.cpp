@@ -10,12 +10,13 @@
 #include "ListaDeJuegos.h"
 #include "../log/Logger.h"
 
-#define ARCHIVO "src/Concupark.cpp"
+#define ARCHIVO_SEM_FILA "semaforofila"
 #define ARCHIVO_JUEGO "concuPark.conf"
+#define ARCHIVO_SEM_JUEGO "semaforojuego"
 #define ESPERAR_JUEGO 60 //1min
 
 ListaDeJuegos::ListaDeJuegos(vector<Juego> juegos) : juegosCompartidos(juegos),
-	semaforoFila(ARCHIVO, 0, juegos.size()), semaforoJuego(ARCHIVO_JUEGO, 0, juegos.size()),
+	semaforoFila(ARCHIVO_SEM_FILA, 0, juegos.size()), semaforoJuego(ARCHIVO_SEM_JUEGO, 0, juegos.size()),
 	lockJuego(ARCHIVO_JUEGO), cantidad(juegos.size()){
 }
 

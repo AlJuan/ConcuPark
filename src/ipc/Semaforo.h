@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <string>
 #include <cerrno>
+#include "FileHelper.h"
 
 class Semaforo {
 
@@ -16,6 +17,7 @@ private:
 	int valorInicial;
 	int cantidad;
 	pid_t pidCreador;
+	string nombreArchivo;
 	int inicializar () const;
 
 public:

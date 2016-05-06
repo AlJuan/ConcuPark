@@ -1,7 +1,6 @@
 #include "LockFile.h"
 
 LockFile :: LockFile ( const std::string nombre ) {
-
 	this->nombre = nombre;
 	this->fl.l_type = F_WRLCK;
 	this->fl.l_whence = SEEK_SET;
@@ -29,4 +28,5 @@ ssize_t LockFile :: escribir ( const void* buffer,const ssize_t buffsize ) const
 
 LockFile :: ~LockFile () {
 	close ( this->fd );
+
 }

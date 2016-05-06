@@ -10,7 +10,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <string>
+#include "FileHelper.h"
 
+#define MEMORIA_EXT "tmp"
 
 template <class T> class MemoriaCompartida {
 
@@ -24,7 +26,7 @@ public:
 	MemoriaCompartida ();
 	~MemoriaCompartida ();
 	int crear ( const std::string& archivo,const char letra, int cat );
-	void liberar ();
+	void liberar (std::string nombreArchivo);
 	void escribir ( const T& dato, int pos );
 	T leer (int pos) const;
 
@@ -37,9 +39,9 @@ template <class T> MemoriaCompartida<T> :: ~MemoriaCompartida() {
 }
 
 template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
-
+	string nombreArchivo = FileHelper::crearArchivo(archivo, MEMORIA_EXT);
 	// generacion de la clave
-	key_t clave = ftok ( archivo.c_str(),letra );
+	key_t clave = ftok ( nombreArchivo.c_str(),letra );
 	if ( clave == -1 )
 		return ERROR_FTOK;
 	else {
@@ -63,7 +65,7 @@ template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archiv
 }
 
 
-template <class T> void MemoriaCompartida<T> :: liberar () {
+template <class T> void MemoriaCompartida<T> :: liberar (std::string nombreArchivo) {
 	// detach del bloque de memoria
 	shmdt ( static_cast<void*> (this->ptrDatos) );
 
@@ -71,6 +73,7 @@ template <class T> void MemoriaCompartida<T> :: liberar () {
 
 	if ( procAdosados == 0 ) {
 		shmctl ( this->shmId,IPC_RMID,NULL );
+		FileHelper::borrarArchivo(nombreArchivo, MEMORIA_EXT);
 	}
 }
 

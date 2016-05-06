@@ -2,8 +2,11 @@
 
 #include "../log/Logger.h"
 
-Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cantidad):valorInicial(valorInicial), cantidad(cantidad) {
-	key_t clave = ftok ( nombre.c_str(), 'a' );
+#define SEMAFORO_EXT "tmp"
+
+Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cantidad):valorInicial(valorInicial), cantidad(cantidad), nombreArchivo(nombre) {
+	string nombreArchivo = FileHelper::crearArchivo(nombre, SEMAFORO_EXT);
+	key_t clave = ftok ( nombreArchivo.c_str(), 'a' );
 	this->id = semget ( clave, cantidad,0666 | IPC_CREAT );
 	this->inicializar ();
 	this->pidCreador = getpid();
@@ -75,6 +78,7 @@ void Semaforo :: eliminar () const {
 	if (this->pidCreador == getpid()){
 		for (int i = 0; i < cantidad; i++)
 			semctl ( this->id, i, IPC_RMID );
+		FileHelper::borrarArchivo(nombreArchivo, SEMAFORO_EXT);
 	}
 
 }
