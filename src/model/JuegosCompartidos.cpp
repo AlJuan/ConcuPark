@@ -13,8 +13,7 @@
 JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO_LOCK) {
 	int estadoMemoria = mem.crear( ARCHIVO_MEMORIA, 'R', juegos.size());
 	if (estadoMemoria == SHM_OK) {
-		Logger::insert(Logger::TYPE_DEBUG,
-				"Memoria compartida creada correctamente");
+		Logger::insert(Logger::TYPE_DEBUG, "Memoria compartida creada correctamente");
 	} else {
 		Logger::insert(Logger::TYPE_ERROR, "Error al crear memoria compartida");
 	}

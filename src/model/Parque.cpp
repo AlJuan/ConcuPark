@@ -32,6 +32,7 @@ void Parque::crearPersonas(list<ConfiguracionPersona> configuracionPersonas) {
 }
 
 int Parque::abrirParque(){
+	// Cada persona entra al parque en un proceso diferente
 	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
 		Persona* p = (*it);
 		int id = fork();

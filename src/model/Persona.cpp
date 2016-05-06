@@ -49,13 +49,12 @@ void Persona::salirDelParque(){
 
 void Persona::jugar(Juego juego){
 	this->itListaJuegos.entrarJuegoActual(this->toString());
+	this->pagarEntrada(juego);
 	this->itListaJuegos.salirJuegoActual();
 
-	this->pagarEntrada(juego);
 }
 
 void Persona::ejecutar(){
-	//Si es el hijo comienza su ejecucion
 	this->entrarAlParque();
 	this->salirDelParque();
 }

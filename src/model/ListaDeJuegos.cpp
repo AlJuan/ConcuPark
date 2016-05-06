@@ -33,13 +33,14 @@ int ListaDeJuegos::getCantidad(){
 	return this->cantidad;
 }
 
-void ListaDeJuegos::entrarJuego(int posicion, string persona){
+void ListaDeJuegos::entrarFila(int posicion, string persona){
 	Juego juego = this->juegosCompartidos.entrarFila(posicion);
 	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
 	this->jugar(juego, posicion, persona);
 }
 
-void ListaDeJuegos::esperarJuego(int posicion, string persona, string juego) {
+void ListaDeJuegos::entrarJuego(int posicion, string persona, string juego) {
+	// Entro al juego y espera a que termine
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego);
 	this->semaforoJuego.wait(posicion);
 }
@@ -47,10 +48,10 @@ void ListaDeJuegos::esperarJuego(int posicion, string persona, string juego) {
 void ListaDeJuegos::esperarCola(int posicion, string persona, string juego) {
 	int err = this->semaforoFila.timedWait(posicion, ESPERAR_JUEGO);
 	if (err == EAGAIN){
-		//tiro timeout
+		// Timeout: Comienza el juego aunque la fila no este llena
 		this->ejecutarJuego(posicion, persona);
 	}else{
-		esperarJuego(posicion, persona, juego);
+		entrarJuego(posicion, persona, juego);
 	}
 
 }
@@ -65,7 +66,7 @@ void ListaDeJuegos::jugar(Juego juego, int posicion, string persona){
 }
 
 void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
-	//tomo lock por si hay alguien jugando, hay que esperar q termine
+	// Toma Lock por si hay alguien jugando, hay que esperar a que termine
 	this->lockJuego.tomarLock(posicion);
 	Juego juego = this->juegosCompartidos.getJuego(posicion);
 	//Se resta uno porque uno de los procesos es este
@@ -73,7 +74,8 @@ void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 	Logger::insert(Logger::TYPE_DEBUG, "Comienza ejecucion del " + juego.toString());
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
 	this->sacarPersonasDeLaFila(cantidadPersonasAJugar, posicion);
-	sleep(juego.getDuracion());
+	sleep(juego.getDuracion()); // Simula tiempo jugando
+	Logger::insert(Logger::TYPE_DEBUG, "Termina ejecucion del " + juego.toString());
 	this->sacarPersonasDelJuego(cantidadPersonasAJugar, posicion);
 	this->lockJuego.liberarLock(posicion);
 }

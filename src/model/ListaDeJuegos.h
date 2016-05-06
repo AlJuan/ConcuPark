@@ -28,7 +28,7 @@ private:
 	void ejecutarJuego(int posicion, string persona);
 	void sacarPersonasDelJuego(int cantidad, int posicion);
 	void sacarPersonasDeLaFila(int cantidad, int posicion);
-	void esperarJuego(int posicion, string persona, string juego);
+	void entrarJuego(int posicion, string persona, string juego);
 	void esperarCola(int posicion, string persona, string juego);
 
 public:
@@ -37,7 +37,7 @@ public:
 	 * getJuego se usa para solo lectura!
 	 */
 	Juego getJuego(int posicion);
-	void entrarJuego(int posicion, string persona);
+	void entrarFila(int posicion, string persona);
 	void salirJuego(int posicion);
 	int getCantidad();
 

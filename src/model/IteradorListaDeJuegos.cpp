@@ -32,7 +32,7 @@ ListaDeJuegos* IteradorListaDeJuegos::getLista(){
 }
 
 void IteradorListaDeJuegos::entrarJuegoActual(string persona){
-	this->lista->entrarJuego(this->posicion, persona);
+	this->lista->entrarFila(this->posicion, persona);
 }
 void IteradorListaDeJuegos::salirJuegoActual(){
 	this->lista->salirJuego(this->posicion);

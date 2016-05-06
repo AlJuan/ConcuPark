@@ -30,7 +30,7 @@ int Semaforo :: inicializar () const {
 		//TODO manejo de errores!
 		resultado = semctl ( this->id,i,SETVAL,init );
 	}
-
+	Logger::insert(Logger::TYPE_DEBUG, "Semaforo creado correctamente (" + nombreArchivo + ")");
 	return resultado;
 }
 
