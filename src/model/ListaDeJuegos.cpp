@@ -81,7 +81,7 @@ void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 }
 
 void ListaDeJuegos::sacarPersonasDeLaFila(int cantidad, int posicion){
-	this->juegosCompartidos.salirFila(posicion, cantidad);
+	this->juegosCompartidos.salirFila(posicion, cantidad + 1);
 	for (int i = 0; i < cantidad; i++)
 		this->semaforoFila.signal(posicion);
 }
