@@ -11,7 +11,7 @@
 #include "../log/Logger.h"
 
 #define ARCHIVO_SEM_FILA "semaforofila"
-#define ARCHIVO_JUEGO "concuPark.conf"
+#define ARCHIVO_JUEGO "locklistadejuegos"
 #define ARCHIVO_SEM_JUEGO "semaforojuego"
 #define ESPERAR_JUEGO 60 //1min
 
@@ -73,6 +73,7 @@ void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 	int cantidadPersonasAJugar = juego.getCantidadListosParaJugar() - 1;
 	Logger::insert(Logger::TYPE_DEBUG, "Comienza ejecucion del " + juego.toString());
 	Logger::insert(Logger::TYPE_INFO, persona + " entro al " + juego.toString());
+	this->juegosCompartidos.salirFila(posicion, 1);
 	this->sacarPersonasDeLaFila(cantidadPersonasAJugar, posicion);
 	sleep(juego.getDuracion()); // Simula tiempo jugando
 	Logger::insert(Logger::TYPE_DEBUG, "Termina ejecucion del " + juego.toString());
@@ -81,7 +82,7 @@ void ListaDeJuegos::ejecutarJuego(int posicion, string persona){
 }
 
 void ListaDeJuegos::sacarPersonasDeLaFila(int cantidad, int posicion){
-	this->juegosCompartidos.salirFila(posicion, cantidad + 1);
+	this->juegosCompartidos.salirFila(posicion, cantidad);
 	for (int i = 0; i < cantidad; i++)
 		this->semaforoFila.signal(posicion);
 }

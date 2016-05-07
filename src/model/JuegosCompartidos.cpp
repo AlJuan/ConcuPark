@@ -8,9 +8,10 @@
 #include "JuegosCompartidos.h"
 
 #define ARCHIVO_MEMORIA "memoriacompartida"
-#define ARCHIVO_LOCK "concuPark.conf"
+#define ARCHIVO_LOCK_ENTRADA "lockjuegosentrada"
+#define ARCHIVO_LOCK_SALIDA "lockjuegossalida"
 
-JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lock(ARCHIVO_LOCK) {
+JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lockEntrada(ARCHIVO_LOCK_ENTRADA), lockSalida(ARCHIVO_LOCK_SALIDA) {
 	int estadoMemoria = mem.crear( ARCHIVO_MEMORIA, 'R', juegos.size());
 	if (estadoMemoria == SHM_OK) {
 		Logger::insert(Logger::TYPE_DEBUG, "Memoria compartida creada correctamente");
@@ -27,29 +28,37 @@ JuegosCompartidos::~JuegosCompartidos() {
 	mem.liberar(ARCHIVO_MEMORIA);
 }
 
-Juego JuegosCompartidos::tomarJuego(int posicion) {
-	this->lock.tomarLock(posicion);
+Juego JuegosCompartidos::tomarJuegoSalida(int posicion) {
+	this->lockSalida.tomarLock(posicion);
+	return this->mem.leer(posicion);
+}
+void JuegosCompartidos::liberarJuegoSalida(int posicion){
+	this->lockSalida.liberarLock(posicion);
+}
+
+Juego JuegosCompartidos::tomarJuegoEntrada(int posicion) {
+	this->lockEntrada.tomarLock(posicion);
 	return this->mem.leer(posicion);
 
 }
-void JuegosCompartidos::liberarJuego(int posicion){
-	this->lock.liberarLock(posicion);
+void JuegosCompartidos::liberarJuegoEntrada(int posicion){
+	this->lockEntrada.liberarLock(posicion);
 }
 
 Juego JuegosCompartidos::entrarFila(int posicion){
-	Juego juego = this->tomarJuego(posicion);
+	Juego juego = this->tomarJuegoEntrada(posicion);
 	juego.aumentarPersonasEnFila();
 	juego.cobrarEntrada();
 	this->mem.escribir(juego, posicion);
-	this->liberarJuego(posicion);
+	this->liberarJuegoEntrada(posicion);
 	return juego;
 }
 
 void JuegosCompartidos::salirFila(int posicion, int cantidad){
-	Juego juego = this->tomarJuego(posicion);
+	Juego juego = this->tomarJuegoEntrada(posicion);
 	juego.disminuirPersonasEnFila(cantidad);
 	this->mem.escribir(juego, posicion);
-	this->liberarJuego(posicion);
+	this->liberarJuegoEntrada(posicion);
 }
 
 Juego JuegosCompartidos::getJuego(int posicion) {
@@ -57,8 +66,8 @@ Juego JuegosCompartidos::getJuego(int posicion) {
 }
 
 void JuegosCompartidos::salirJuego(int posicion, int cantidad){
-	Juego juego = this->tomarJuego(posicion);
+	Juego juego = this->tomarJuegoSalida(posicion);
 	juego.disminuirPersonasJugando(cantidad);
-	this->liberarJuego(posicion);
+	this->liberarJuegoSalida(posicion);
 }
 

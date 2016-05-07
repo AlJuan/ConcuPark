@@ -20,11 +20,13 @@ using namespace std;
 class JuegosCompartidos {
 private:
 	MemoriaCompartida<Juego> mem;
-	LockFile lock;
+	LockFile lockEntrada;
+	LockFile lockSalida;
 
-	Juego tomarJuego(int posicion);
-	void liberarJuego(int posicion);
-
+	Juego tomarJuegoEntrada(int posicion);
+	void liberarJuegoEntrada(int posicion);
+	Juego tomarJuegoSalida(int posicion);
+	void liberarJuegoSalida(int posicion);
 public:
 	JuegosCompartidos(vector<Juego> juegos);
 	virtual ~JuegosCompartidos();

@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string>
+#include "FileHelper.h"
 
 class LockFile {
 
@@ -11,6 +12,7 @@ private:
 	struct flock fl;
 	int fd;
 	std::string nombre;
+	pid_t creadorPid;
 
 public:
 	LockFile ( const std::string nombre );
