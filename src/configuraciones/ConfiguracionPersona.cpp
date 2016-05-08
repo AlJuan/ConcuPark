@@ -17,6 +17,5 @@ int ConfiguracionPersona::getSaldoInicial() {
 }
 
 ConfiguracionPersona::~ConfiguracionPersona() {
-	// TODO Auto-generated destructor stub
 }
 

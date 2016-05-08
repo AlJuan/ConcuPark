@@ -8,13 +8,8 @@
 #include "Serializable.h"
 
 Serializable::Serializable() {
-	// TODO Auto-generated constructor stub
 
 }
-
-//Serializable::~Serializable() {
-//	// TODO Auto-generated destructor stub
-//}
 
 int Serializable::getId(){
 	return id;

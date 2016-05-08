@@ -12,7 +12,6 @@ IteradorListaDeJuegos::IteradorListaDeJuegos(ListaDeJuegos* ptr): lista(ptr) {
 }
 
 IteradorListaDeJuegos::~IteradorListaDeJuegos() {
-	// TODO Auto-generated destructor stub
 }
 
 bool IteradorListaDeJuegos::esElUltimoJuego() {

@@ -41,6 +41,5 @@ string Logger::getDatetime() {
 
 
 Logger::~Logger() {
-	// TODO Auto-generated destructor stub
 }
 

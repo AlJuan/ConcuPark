@@ -45,7 +45,6 @@ int Juego::getCantidadPersonasEnFila() {
 }
 
 Juego::~Juego() {
-	// TODO Auto-generated destructor stub
 }
 
 bool Juego::haySuficientesPersonasParaJugar(){

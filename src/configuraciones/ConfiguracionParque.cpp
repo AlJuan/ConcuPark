@@ -28,6 +28,5 @@ void ConfiguracionParque::agregarConfiguracionPersona(ConfiguracionPersona conf)
 }
 
 ConfiguracionParque::~ConfiguracionParque() {
-	// TODO Auto-generated destructor stub
 }
 

@@ -43,7 +43,7 @@ int Semaforo :: timedWait (int pos, int seconds) {
 	time.tv_sec = seconds;
 	time.tv_nsec = 0;
 	int resultado = semtimedop ( this->id,&operacion, 1, &time );
-
+	//TODO manejar ERRNO si falla
 	return (resultado < 0)? errno : resultado;
 }
 
@@ -57,7 +57,7 @@ int Semaforo :: wait (int pos) const {
 	//El ultimo param de semop es la longitud del segundo parametro
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );
-
+	//TODO manejar ERRNO si falla
 	return (resultado < 0)? errno : resultado;
 }
 
@@ -71,6 +71,7 @@ int Semaforo :: signal (int pos) const {
 	//El ultimo param de semop es la longitud del segundo parametro
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );
+	//TODO manejar ERRNO si falla
 	return resultado;
 }
 

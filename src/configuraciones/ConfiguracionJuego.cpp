@@ -25,6 +25,5 @@ int ConfiguracionJuego::getDuracion(){
 }
 
 ConfiguracionJuego::~ConfiguracionJuego() {
-	// TODO Auto-generated destructor stub
 }
 

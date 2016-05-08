@@ -22,7 +22,7 @@
 using namespace std;
 
 int main() {
-	string archivo ( "concuPark.conf" );
+	string archivo ( "123.conf" );
 	Parser parser;
 	ConfiguracionParque confParque = parser.parse(archivo);
 

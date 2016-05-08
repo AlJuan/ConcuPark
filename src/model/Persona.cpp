@@ -17,7 +17,6 @@ Persona::Persona(int id, ConfiguracionPersona conf, ListaDeJuegos* juegos): itLi
 }
 
 Persona::~Persona() {
-	// TODO Auto-generated destructor stub
 }
 
 
@@ -40,11 +39,6 @@ bool Persona::puedePagarAlgunJuego(){
 
 void Persona::salirDelParque(){
 	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del parque");
-	//delete itListaJuegos.getLista();
-	/*
-	 * TODO Comento este delete porque cuando se invoca hace que se elimine el semaforo
-	 * y si un proceso borra el semaforo se borra para todos!
-	 * */
 }
 
 void Persona::jugar(Juego juego){

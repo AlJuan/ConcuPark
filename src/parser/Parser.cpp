@@ -19,13 +19,12 @@ using namespace std;
 #define DELIMITADOR_LABEL ':'
 
 Parser::Parser() {
-	// TODO Auto-generated constructor stub
 
 }
 
 ConfiguracionParque Parser::parse(string nombreArchivo) {
 	string capacidadesStr, costosStr, presupuestosStr, duracionesStr;
-
+	//TODO archivo inexistente
 	ifstream archivo (nombreArchivo.c_str());
 	getline(archivo, duracionesStr);
 	getline(archivo, capacidadesStr);
@@ -35,6 +34,7 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 	ConfiguracionParque confParque;
 
+	//TODO verificar en cada metodo que sean valores validos del conf
     parseJuegos(&confParque, capacidadesStr, costosStr, duracionesStr);
     parsePersonas(&confParque, presupuestosStr);
 
@@ -80,6 +80,5 @@ vector<string> Parser::split(const string s, char delim) {
 }
 
 Parser::~Parser() {
-	// TODO Auto-generated destructor stub
 }
 

@@ -39,6 +39,7 @@ template <class T> MemoriaCompartida<T> :: ~MemoriaCompartida() {
 }
 
 template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
+	//TODO manejar returns de crear
 	string nombreArchivo = FileHelper::crearArchivo(archivo, MEMORIA_EXT);
 	// generacion de la clave
 	key_t clave = ftok ( nombreArchivo.c_str(),letra );
@@ -67,6 +68,7 @@ template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archiv
 
 template <class T> void MemoriaCompartida<T> :: liberar (std::string nombreArchivo) {
 	// detach del bloque de memoria
+	//TODO manejar ERRNO si falla
 	shmdt ( static_cast<void*> (this->ptrDatos) );
 
 	int procAdosados = this->cantidadProcesosAdosados ();
@@ -87,6 +89,7 @@ template <class T> T MemoriaCompartida<T> :: leer (int pos) const {
 
 template <class T> int MemoriaCompartida<T> :: cantidadProcesosAdosados () const {
 	shmid_ds estado;
+	//TODO manejar ERRNO si falla
 	shmctl ( this->shmId,IPC_STAT,&estado );
 	return estado.shm_nattch;
 }
