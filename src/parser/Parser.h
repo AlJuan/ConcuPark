@@ -18,11 +18,12 @@ private:
 	void parsePersonas(ConfiguracionParque* confParque, string presupuestosStr);
 	void parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
 	string obtenerValores(string linea, char delimitador);
-
+	vector<string> split(const string s, char delim);
+	void leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr);
 public:
 	Parser();
-	vector<string> split(const string s, char delim);
 	ConfiguracionParque parse(string nombreArchivo);
+	int obtenerCantidadJuegos(string nombreArchivo);
 	virtual ~Parser();
 };
 

@@ -23,14 +23,9 @@ Parser::Parser() {
 }
 
 ConfiguracionParque Parser::parse(string nombreArchivo) {
-	string capacidadesStr, costosStr, presupuestosStr, duracionesStr;
-	//TODO archivo inexistente
-	ifstream archivo (nombreArchivo.c_str());
-	getline(archivo, duracionesStr);
-	getline(archivo, capacidadesStr);
-	getline(archivo, costosStr);
-	getline(archivo, presupuestosStr);
-    archivo.close();
+	string capacidadesStr, costosStr, duracionesStr, presupuestosStr;
+
+	leerArchivo(nombreArchivo, capacidadesStr, costosStr, duracionesStr, presupuestosStr);
 
 	ConfiguracionParque confParque;
 
@@ -40,6 +35,16 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 	return confParque;
 
+}
+
+void Parser::leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr){
+	//TODO archivo inexistente
+	ifstream archivo (nombreArchivo.c_str());
+	getline(archivo, duracionesStr);
+	getline(archivo, capacidadesStr);
+	getline(archivo, costosStr);
+	getline(archivo, presupuestosStr);
+	archivo.close();
 }
 
 string Parser::obtenerValores(string linea, char delimitador) {
@@ -57,6 +62,13 @@ void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr,
 		confParque->agregarConfiguracionJuego(conf);
 	}
 
+}
+
+int Parser::obtenerCantidadJuegos(string nombreArchivo){
+	string capacidadesStr, costosStr, duracionesStr, presupuestosStr;
+	leerArchivo(nombreArchivo, capacidadesStr, costosStr, duracionesStr, presupuestosStr);
+	vector<string> duraciones = split(obtenerValores(duracionesStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
+	return duraciones.size();
 }
 
 void Parser::parsePersonas(ConfiguracionParque* confParque, string presupuestosStr) {

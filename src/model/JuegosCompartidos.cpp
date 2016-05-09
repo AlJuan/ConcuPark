@@ -71,3 +71,19 @@ void JuegosCompartidos::salirJuego(int posicion, int cantidad){
 	this->liberarJuegoSalida(posicion);
 }
 
+int JuegosCompartidos::consultarRecaudacion(int cantidadJuegos){
+	int dineroAcumulado = 0;
+	MemoriaCompartida<Juego> compartido;
+	int estadoMemoria = compartido.crear( ARCHIVO_MEMORIA, 'R', cantidadJuegos);
+	if (estadoMemoria == SHM_OK) {
+		Logger::insert(Logger::TYPE_DEBUG, "Memoria compartida creada correctamente");
+	} else {
+		Logger::insert(Logger::TYPE_ERROR, "Error al crear memoria compartida");
+	}
+	for (unsigned int index = 0; index < cantidadJuegos; index++) {
+		dineroAcumulado += compartido.leer(index).getDineroAcumulado();
+	}
+	return dineroAcumulado;
+
+}
+

@@ -37,6 +37,10 @@ public:
 	 * getJuego se usa para solo lectura!
 	 */
 	Juego getJuego(int posicion);
+	/*
+	 * Lee de la memoria compartida la recaudacion de los juegos.
+	 */
+	static int consultarRecaudacion(int cantidadJuegos);
 };
 
 #endif /* MODEL_JUEGOSCOMPARTIDOS_H_ */
