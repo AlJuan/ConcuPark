@@ -21,6 +21,8 @@
 
 #define OPT_CONSULTA "-c"
 
+#define ARCHIVO_CONFIG "concuPark.conf"
+
 using namespace std;
 
 bool existeParametro(int argc, char* argv[], string nombreParam);
@@ -28,11 +30,9 @@ bool existeParametro(int argc, char* argv[], string nombreParam);
 int main(int argc, char* argv[]) {
 
 	if (existeParametro(argc, argv, OPT_CONSULTA)){
-		//consultarRecaudacion!
+		cout << JuegosCompartidos::consultarRecaudacion(Parser::obtenerCantidadJuegos(ARCHIVO_CONFIG)) << endl;
 	} else {
-		string archivo ( "concuPark.conf" );
-		Parser parser;
-		ConfiguracionParque confParque = parser.parse(archivo);
+		ConfiguracionParque confParque = Parser::parse(ARCHIVO_CONFIG);
 
 		Parque parque(confParque);
 		Logger::insert(Logger::TYPE_DEBUG, "Abre el parque");

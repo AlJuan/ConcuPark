@@ -18,10 +18,6 @@ using namespace std;
 #define DELIMITADOR_VALORES ','
 #define DELIMITADOR_LABEL ':'
 
-Parser::Parser() {
-
-}
-
 ConfiguracionParque Parser::parse(string nombreArchivo) {
 	string capacidadesStr, costosStr, duracionesStr, presupuestosStr;
 

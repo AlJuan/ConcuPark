@@ -15,15 +15,14 @@
 
 class Parser {
 private:
-	void parsePersonas(ConfiguracionParque* confParque, string presupuestosStr);
-	void parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
-	string obtenerValores(string linea, char delimitador);
-	vector<string> split(const string s, char delim);
-	void leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr);
+	static void parsePersonas(ConfiguracionParque* confParque, string presupuestosStr);
+	static void parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
+	static string obtenerValores(string linea, char delimitador);
+	static vector<string> split(const string s, char delim);
+	static void leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr);
 public:
-	Parser();
-	ConfiguracionParque parse(string nombreArchivo);
-	int obtenerCantidadJuegos(string nombreArchivo);
+	static ConfiguracionParque parse(string nombreArchivo);
+	static int obtenerCantidadJuegos(string nombreArchivo);
 	virtual ~Parser();
 };
 
