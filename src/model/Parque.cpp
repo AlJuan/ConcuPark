@@ -48,12 +48,7 @@ int Parque::abrirParque(){
 }
 
 int Parque::obtenerRecaudacionCaja() {
-	int recaudacion = 0;
-	for (int i = 0; i < juegos->getCantidad(); i++) {
-		Juego j = juegos->getJuego(i);
-		recaudacion += j.getDineroAcumulado();
-	}
-	return recaudacion;
+	return juegos->obtenerRecaudacionCaja();
 }
 
 Parque::~Parque() {

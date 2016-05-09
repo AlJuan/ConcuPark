@@ -38,6 +38,7 @@ public:
 	 */
 	Juego getJuego(int posicion);
 	void entrarFila(int posicion, string persona);
+	int obtenerRecaudacionCaja();
 	void salirJuego(int posicion);
 	int getCantidad();
 

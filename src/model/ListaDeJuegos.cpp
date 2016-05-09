@@ -95,3 +95,12 @@ void ListaDeJuegos::sacarPersonasDelJuego(int cantidad, int posicion){
 void ListaDeJuegos::salirJuego(int posicion){
 	this->juegosCompartidos.salirJuego(posicion, 1);
 }
+
+int ListaDeJuegos::obtenerRecaudacionCaja(){
+	int recaudacion = 0;
+	for (int i = 0; i < this->getCantidad(); i++) {
+		Juego j = this->getJuego(i);
+		recaudacion += j.getDineroAcumulado();
+	}
+	return recaudacion;
+}

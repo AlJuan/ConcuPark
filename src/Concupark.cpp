@@ -21,8 +21,8 @@
 
 using namespace std;
 
-int main() {
-	string archivo ( "123.conf" );
+int main(int argc, char* argv[]) {
+	string archivo ( "concuPark.conf" );
 	Parser parser;
 	ConfiguracionParque confParque = parser.parse(archivo);
 
