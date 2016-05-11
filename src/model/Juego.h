@@ -16,7 +16,6 @@ using namespace std;
 
 class Juego : public Serializable{
 private:
-	int id;
 	int capacidad;
 	int duracion;
 	int personasJugando;

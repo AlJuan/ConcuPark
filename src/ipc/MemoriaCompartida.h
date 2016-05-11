@@ -1,16 +1,14 @@
 #ifndef IPC_MEMORIACOMPARTIDA_H_
 #define IPC_MEMORIACOMPARTIDA_H_
 
-#define SHM_OK			 0
-#define	ERROR_FTOK		-1
-#define ERROR_SHMGET	-2
-#define	ERROR_SHMAT		-3
-
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <string>
 #include "FileHelper.h"
+#include "../log/Logger.h"
+#include <cerrno>
+#include "../exceptions/MemoriaCompartidaException.h"
 
 #define MEMORIA_EXT "tmp"
 
@@ -21,11 +19,12 @@ private:
 	T*	ptrDatos;
 
 	int cantidadProcesosAdosados () const;
+	void obtenerMemoriaCompartida(key_t key, int cant);
 
 public:
 	MemoriaCompartida ();
 	~MemoriaCompartida ();
-	int crear ( const std::string& archivo,const char letra, int cat );
+	void crear ( const std::string& archivo,const char letra, int cat );
 	void liberar (std::string nombreArchivo);
 	void escribir ( const T& dato, int pos );
 	T leer (int pos) const;
@@ -38,29 +37,31 @@ template <class T> MemoriaCompartida<T> :: MemoriaCompartida() : shmId(0), ptrDa
 template <class T> MemoriaCompartida<T> :: ~MemoriaCompartida() {
 }
 
-template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
+template <class T> void MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
 	//TODO manejar returns de crear
 	string nombreArchivo = FileHelper::crearArchivo(archivo, MEMORIA_EXT);
 	// generacion de la clave
 	key_t clave = ftok ( nombreArchivo.c_str(),letra );
-	if ( clave == -1 )
-		return ERROR_FTOK;
-	else {
-		// creacion de la memoria compartida
-		this->shmId = shmget ( clave,sizeof(T) * cant,0644|IPC_CREAT );
+	if ( clave == -1 ){
+		throw MemoriaCompartidaException(MemoriaCompartidaException::TYPE_FTOK, errno);
+	} else {
+		obtenerMemoriaCompartida(clave, cant);
+	}
+}
 
-		if ( this->shmId == -1 )
-			return ERROR_SHMGET;
-		else {
-			// attach del bloque de memoria al espacio de direcciones del proceso
-			void* ptrTemporal = shmat ( this->shmId,NULL,0 );
+template <class T> void MemoriaCompartida<T> :: obtenerMemoriaCompartida(key_t clave, int cant){
+	// creacion de la memoria compartida
+	this->shmId = shmget ( clave,sizeof(T) * cant,0644|IPC_CREAT );
+	if ( this->shmId == -1 ) {
+		throw MemoriaCompartidaException(MemoriaCompartidaException::TYPE_SHMGET, errno);
+	} else {
+		// attach del bloque de memoria al espacio de direcciones del proceso
+		void* ptrTemporal = shmat ( this->shmId,NULL,0 );
 
-			if ( ptrTemporal == (void *) -1 ) {
-				return ERROR_SHMAT;
-			} else {
-				this->ptrDatos = static_cast<T*> (ptrTemporal);
-				return SHM_OK;
-			}
+		if ( ptrTemporal == (void *) -1 ) {
+			throw MemoriaCompartidaException(MemoriaCompartidaException::TYPE_SHMAT, errno);
+		} else {
+			this->ptrDatos = static_cast<T*> (ptrTemporal);
 		}
 	}
 }

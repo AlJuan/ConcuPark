@@ -32,6 +32,12 @@ void Logger::insert(string typeLog, int cod){
 	insert(typeLog, ss.str());
 }
 
+void Logger::insertError(string message, int errorCode){
+	stringstream ss;
+	ss << message << endl << "CODIGO DE ERROR: " << errorCode;
+	insert(Logger::TYPE_ERROR, ss.str());
+}
+
 string Logger::getDatetime() {
 	time_t  timev;
 	struct tm * timeinfo;
