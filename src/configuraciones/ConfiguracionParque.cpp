@@ -8,6 +8,7 @@
 #include "ConfiguracionParque.h"
 
 ConfiguracionParque::ConfiguracionParque() {
+	creadoCorrectamente = true;
 
 }
 
@@ -25,6 +26,14 @@ void ConfiguracionParque::agregarConfiguracionJuego(ConfiguracionJuego conf) {
 
 void ConfiguracionParque::agregarConfiguracionPersona(ConfiguracionPersona conf) {
 	configuracionesPersonas.push_back(conf);
+}
+
+bool ConfiguracionParque::isCreadoCorrectamente() {
+	return creadoCorrectamente;
+}
+
+void ConfiguracionParque::setCreadoCorrectamente(bool creadoCorrectamente) {
+	this->creadoCorrectamente = creadoCorrectamente;
 }
 
 ConfiguracionParque::~ConfiguracionParque() {

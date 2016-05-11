@@ -12,6 +12,7 @@
 #include <sstream>
 
 #include "Parser.h"
+#include "../log/Logger.h"
 
 using namespace std;
 
@@ -19,11 +20,15 @@ using namespace std;
 #define DELIMITADOR_LABEL ':'
 
 ConfiguracionParque Parser::parse(string nombreArchivo) {
+	ConfiguracionParque confParque;
 	string capacidadesStr, costosStr, duracionesStr, presupuestosStr;
 
-	leerArchivo(nombreArchivo, capacidadesStr, costosStr, duracionesStr, presupuestosStr);
-
-	ConfiguracionParque confParque;
+	bool archivoEncontrado = leerArchivo(nombreArchivo, capacidadesStr, costosStr, duracionesStr, presupuestosStr);
+	if (!archivoEncontrado) {
+		Logger::insert(Logger::TYPE_ERROR, "Error en archivo de configuracion: Archivo no encontrado");
+		confParque.setCreadoCorrectamente(false);
+		return confParque;
+	}
 
 	//TODO verificar en cada metodo que sean valores validos del conf
     parseJuegos(&confParque, capacidadesStr, costosStr, duracionesStr);
@@ -33,14 +38,23 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 
 }
 
-void Parser::leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr){
-	//TODO archivo inexistente
+bool Parser::leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr){
 	ifstream archivo (nombreArchivo.c_str());
+	if (!archivo)
+		return false;
+
 	getline(archivo, duracionesStr);
 	getline(archivo, capacidadesStr);
 	getline(archivo, costosStr);
 	getline(archivo, presupuestosStr);
 	archivo.close();
+	return true;
+}
+
+bool Parser::faltanPropiedadesDeJuegos(int duraciones, int capacidades, int costos) {
+	if (duraciones == capacidades && capacidades == costos)
+		return false;
+	return true;
 }
 
 string Parser::obtenerValores(string linea, char delimitador) {
@@ -48,15 +62,22 @@ string Parser::obtenerValores(string linea, char delimitador) {
 	return lineaSpliteada.size() > 1? lineaSpliteada[lineaSpliteada.size() - 1] : "";
 }
 
-void Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr) {
+bool Parser::parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr) {
 	vector<string> duraciones = split(obtenerValores(duracionesStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
 	vector<string> capacidades = split(obtenerValores(capacidadesStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
 	vector<string> costos = split(obtenerValores(costosStr, DELIMITADOR_LABEL), DELIMITADOR_VALORES);
+
+	if (faltanPropiedadesDeJuegos(duraciones.size(), capacidades.size(), costos.size())) {
+		Logger::insert(Logger::TYPE_ERROR, "Error en archivo de configuracion: Falta informacion sobre un juego");
+		confParque->setCreadoCorrectamente(false);
+		return false;
+	}
 
 	for (unsigned int i = 0; i < capacidades.size(); i++) {
 		ConfiguracionJuego conf (atoi(capacidades[i].c_str()), atoi(costos[i].c_str()), atoi(duraciones[i].c_str()));
 		confParque->agregarConfiguracionJuego(conf);
 	}
+	return true;
 
 }
 

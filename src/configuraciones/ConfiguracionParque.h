@@ -19,13 +19,17 @@ class ConfiguracionParque {
 private:
 	list<ConfiguracionJuego> configuracionesJuegos;
 	list<ConfiguracionPersona> configuracionesPersonas;
+	bool creadoCorrectamente;
 public:
 	ConfiguracionParque();
 	list<ConfiguracionJuego> getConfiguracionesJuegos();
 	list<ConfiguracionPersona> getConfiguracionesPersonas();
+	bool isCreadoCorrectamente();
+	void setCreadoCorrectamente(bool creadoCorrectamente);
 	void agregarConfiguracionJuego(ConfiguracionJuego conf);
 	void agregarConfiguracionPersona(ConfiguracionPersona conf);
 	virtual ~ConfiguracionParque();
+
 };
 
 #endif /* CONFIGURACIONES_CONFIGURACIONPARQUE_H_ */

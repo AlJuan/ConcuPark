@@ -37,6 +37,8 @@ int main(int argc, char* argv[]) {
 		cout << JuegosCompartidos::consultarRecaudacion(Parser::obtenerCantidadJuegos(ARCHIVO_CONFIG)) << endl;
 	} else {
 		ConfiguracionParque confParque = Parser::parse(ARCHIVO_CONFIG);
+		if (!confParque.isCreadoCorrectamente())
+			return -1;
 
 		Parque parque(confParque);
 		Logger::insert(Logger::TYPE_INFO, "Abre el parque");

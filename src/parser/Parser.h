@@ -16,10 +16,11 @@
 class Parser {
 private:
 	static void parsePersonas(ConfiguracionParque* confParque, string presupuestosStr);
-	static void parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
+	static bool parseJuegos(ConfiguracionParque* confParque, string capacidadesStr, string costosStr, string duracionesStr);
 	static string obtenerValores(string linea, char delimitador);
 	static vector<string> split(const string s, char delim);
-	static void leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr);
+	static bool faltanPropiedadesDeJuegos(int duraciones, int capacidades, int costos);
+	static bool leerArchivo(string nombreArchivo, string& capacidadesStr, string& costosStr, string& duracionesStr, string& presupuestosStr);
 public:
 	static ConfiguracionParque parse(string nombreArchivo);
 	static int obtenerCantidadJuegos(string nombreArchivo);
