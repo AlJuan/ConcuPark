@@ -35,7 +35,7 @@ int ListaDeJuegos::getCantidad(){
 
 void ListaDeJuegos::entrarFila(int posicion, string persona){
 	Juego juego = this->juegosCompartidos.entrarFila(posicion);
-	Logger::insert(Logger::TYPE_INFO, persona + " esta en la cola del " + juego.toString());
+	Logger::insert(Logger::TYPE_DEBUG, persona + " esta en la cola del " + juego.toString());
 	this->jugar(juego, posicion, persona);
 }
 
@@ -62,7 +62,7 @@ void ListaDeJuegos::jugar(Juego juego, int posicion, string persona){
 	}else{
 		esperarCola(posicion, persona, juego.toString());
 	}
-	Logger::insert(Logger::TYPE_INFO, persona + " salio del " + juego.toString());
+	Logger::insert(Logger::TYPE_DEBUG, persona + " salio del " + juego.toString());
 }
 
 void ListaDeJuegos::ejecutarJuego(int posicion, string persona){

@@ -21,6 +21,7 @@ public:
 	static string getDatetime();
 	virtual ~Logger();
 
+	static bool MODE_DEBUG;
 	static string TYPE_INFO;
 	static string TYPE_DEBUG;
 	static string TYPE_ERROR;

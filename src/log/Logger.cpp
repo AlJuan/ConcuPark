@@ -13,8 +13,12 @@
 string Logger::TYPE_INFO = "INFO";
 string Logger::TYPE_DEBUG = "DEBUG";
 string Logger::TYPE_ERROR = "ERROR";
+bool Logger::MODE_DEBUG = false;
 
 void Logger::insert(string typeLog, string message){
+	if (!Logger::MODE_DEBUG && typeLog == Logger::TYPE_DEBUG) {
+		return;
+	}
 	ofstream logFile;
 	logFile.open("concupark.log", ios::out | ios::app | ios::binary);
 
