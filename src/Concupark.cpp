@@ -14,6 +14,7 @@
 
 #include "configuraciones/ConfiguracionParque.h"
 #include "exceptions/MemoriaCompartidaException.h"
+#include "exceptions/IPCException.h"
 #include "log/Logger.h"
 #include "model/JuegosCompartidos.h"
 #include "model/Parque.h"
@@ -46,7 +47,6 @@ int main(int argc, char* argv[]) {
 			Logger::insert(Logger::TYPE_INFO, "Abre el parque");
 			int pid = parque.abrirParque();
 			if (pid != 0){
-				//TODO algo mas copado que devolver este pid fake
 				int cantPersonas = confParque.getConfiguracionesPersonas().size();
 				int status;
 				// Espera a que todas las personas salgan del parque
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 				Logger::insert(Logger::TYPE_INFO, "Cierra el parque");
 				Logger::insert(Logger::TYPE_DEBUG, "Recaudacion total: $" + ss.str());
 			}
-		} catch (MemoriaCompartidaException& e){
+		} catch (IPCException& e){
 			Logger::insertError(e.what(), e.getCode());
 		}
 

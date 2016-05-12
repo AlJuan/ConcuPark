@@ -38,7 +38,7 @@ bool Persona::puedePagarAlgunJuego(){
 }
 
 void Persona::salirDelParque(){
-	Logger::insert(Logger::TYPE_DEBUG, this->toString() + " salio del parque");
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " salio del parque");
 }
 
 void Persona::jugar(Juego juego){
@@ -54,7 +54,7 @@ void Persona::ejecutar(){
 }
 
 void Persona::entrarAlParque(){
-	Logger::insert(Logger::TYPE_DEBUG, this->toString() + " entro al parque");
+	Logger::insert(Logger::TYPE_INFO, this->toString() + " entro al parque");
 	//Si no puede pagar niguno sale
 	while (this->puedePagarAlgunJuego()) {
 		try {

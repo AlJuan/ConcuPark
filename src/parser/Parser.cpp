@@ -30,7 +30,6 @@ ConfiguracionParque Parser::parse(string nombreArchivo) {
 		return confParque;
 	}
 
-	//TODO verificar en cada metodo que sean valores validos del conf
     parseJuegos(&confParque, capacidadesStr, costosStr, duracionesStr);
     parsePersonas(&confParque, presupuestosStr);
 

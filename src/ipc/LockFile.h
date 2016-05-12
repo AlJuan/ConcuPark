@@ -20,7 +20,6 @@ public:
 
 	int tomarLock (int pos);
 	int liberarLock (int pos);
-	ssize_t escribir ( const void* buffer,const ssize_t buffsize ) const;
 };
 
 #endif /* IPC_LOCKFILE_H_ */
