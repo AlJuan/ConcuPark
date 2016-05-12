@@ -19,7 +19,12 @@ JuegosCompartidos::JuegosCompartidos(vector<Juego> juegos) : lockEntrada(ARCHIVO
 }
 
 JuegosCompartidos::~JuegosCompartidos() {
-	mem.liberar(ARCHIVO_MEMORIA);
+	try {
+		mem.liberar(ARCHIVO_MEMORIA);
+	} catch (MemoriaCompartidaException& e) {
+		Logger::insertError(e.what(), e.getCode());
+	}
+
 }
 
 Juego JuegosCompartidos::tomarJuegoSalida(int posicion) {

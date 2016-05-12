@@ -6,7 +6,6 @@
 #include <sys/shm.h>
 #include <string>
 #include "FileHelper.h"
-#include "../log/Logger.h"
 #include <cerrno>
 #include "../exceptions/MemoriaCompartidaException.h"
 
@@ -38,7 +37,6 @@ template <class T> MemoriaCompartida<T> :: ~MemoriaCompartida() {
 }
 
 template <class T> void MemoriaCompartida<T> :: crear ( const std::string& archivo,const char letra, int cant ) {
-	//TODO manejar returns de crear
 	string nombreArchivo = FileHelper::crearArchivo(archivo, MEMORIA_EXT);
 	// generacion de la clave
 	key_t clave = ftok ( nombreArchivo.c_str(),letra );
@@ -69,13 +67,13 @@ template <class T> void MemoriaCompartida<T> :: obtenerMemoriaCompartida(key_t c
 
 template <class T> void MemoriaCompartida<T> :: liberar (std::string nombreArchivo) {
 	// detach del bloque de memoria
-	//TODO manejar ERRNO si falla
-	shmdt ( static_cast<void*> (this->ptrDatos) );
-
+	int resultado = shmdt ( static_cast<void*> (this->ptrDatos) );
+	if (resultado == -1) throw  MemoriaCompartidaException(MemoriaCompartidaException::TYPE_SHMAT, errno);
 	int procAdosados = this->cantidadProcesosAdosados ();
 
 	if ( procAdosados == 0 ) {
-		shmctl ( this->shmId,IPC_RMID,NULL );
+		resultado = shmctl ( this->shmId,IPC_RMID,NULL );
+		if (resultado == -1) throw  MemoriaCompartidaException(MemoriaCompartidaException::TYPE_SHMCTL, errno);
 		FileHelper::borrarArchivo(nombreArchivo, MEMORIA_EXT);
 	}
 }
@@ -90,8 +88,8 @@ template <class T> T MemoriaCompartida<T> :: leer (int pos) const {
 
 template <class T> int MemoriaCompartida<T> :: cantidadProcesosAdosados () const {
 	shmid_ds estado;
-	//TODO manejar ERRNO si falla
-	shmctl ( this->shmId,IPC_STAT,&estado );
+	int resultado = shmctl ( this->shmId,IPC_STAT,&estado );
+	if (resultado == -1) throw  MemoriaCompartidaException(MemoriaCompartidaException::TYPE_SHMCTL, errno);
 	return estado.shm_nattch;
 }
 

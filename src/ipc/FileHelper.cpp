@@ -12,7 +12,6 @@ using namespace std;
 
 string FileHelper::crearArchivo(string name, string ext){
 	string nombreCompleto(name + "." + ext);
-	//TODO manejar un fail aca, dependiendo de cada llamado
 	ofstream archivo(nombreCompleto, ios::app);
 	archivo.close();
 	return nombreCompleto;

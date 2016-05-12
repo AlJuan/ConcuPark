@@ -57,7 +57,11 @@ void Persona::entrarAlParque(){
 	Logger::insert(Logger::TYPE_DEBUG, this->toString() + " entro al parque");
 	//Si no puede pagar niguno sale
 	while (this->puedePagarAlgunJuego()) {
-		this->jugarSiguienteJuego();
+		try {
+			this->jugarSiguienteJuego();
+		} catch (IPCException& e){//hubo un error asi que termina
+			Logger::insertError(e.what(), e.getCode());
+		}
 	}
 }
 

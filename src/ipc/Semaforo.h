@@ -24,8 +24,8 @@ public:
 	Semaforo ( const std::string& nombre,const int valorInicial, int cantidad);
 	~Semaforo();
 	int timedWait(int pos, int seconds);
-	int wait (int pos) const; // decrementa
-	int signal (int pos) const; // incrementa
+	void wait (int pos) const; // decrementa
+	void signal (int pos) const; // incrementa
 	void eliminar () const;
 };
 

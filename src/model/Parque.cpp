@@ -7,6 +7,8 @@
 
 #include "Parque.h"
 
+#include "../log/Logger.h"
+
 Parque::Parque(ConfiguracionParque configuracionParque) {
 	crearJuegos(configuracionParque.getConfiguracionesJuegos());
 	crearPersonas(configuracionParque.getConfiguracionesPersonas());
@@ -35,12 +37,13 @@ int Parque::abrirParque(){
 	// Cada persona entra al parque en un proceso diferente
 	for (list<Persona* >::iterator it = personas.begin(); it != personas.end(); ++it){
 		Persona* p = (*it);
-		//TODO si falla la creacion de un proceso fork devuelve -1, manejar
 		int id = fork();
 		if (id == 0) {
 			//Si es el hijo comienza su ejecucion
 			p->ejecutar();
 			return id;
+		} else if (id == -1){
+			Logger::insertError("Error al crear una persona, la ejecucion continua con una persona menos", errno);
 		}
 		//Si es el padre no hace nada...
 	}

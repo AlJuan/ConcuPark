@@ -8,20 +8,22 @@
 #ifndef MEMORIACOMPARTIDAEXCEPTION_H_
 #define MEMORIACOMPARTIDAEXCEPTION_H_
 
-#include <stdexcept>
 #include <string>
+
+#include "IPCException.h"
 
 using namespace std;
 
-class MemoriaCompartidaException: public runtime_error {
-	int code;
+class MemoriaCompartidaException : public IPCException {
 public:
 	MemoriaCompartidaException(string msg, int code);
 	virtual ~MemoriaCompartidaException();
-	int getCode();
 	static string TYPE_FTOK;
 	static string TYPE_SHMGET;
 	static string TYPE_SHMAT;
+	static string TYPE_SHMDT;
+	static string TYPE_SHMCTL;
+
 };
 
 #endif

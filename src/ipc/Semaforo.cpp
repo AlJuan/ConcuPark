@@ -1,5 +1,6 @@
 #include "Semaforo.h"
 
+#include "../exceptions/SemaforoException.h"
 #include "../log/Logger.h"
 
 #define SEMAFORO_EXT "tmp"
@@ -7,7 +8,9 @@
 Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial, int cantidad):valorInicial(valorInicial), cantidad(cantidad), nombreArchivo(nombre) {
 	string nombreArchivo = FileHelper::crearArchivo(nombre, SEMAFORO_EXT);
 	key_t clave = ftok ( nombreArchivo.c_str(), 'a' );
+	if (clave == -1 ) throw SemaforoException(SemaforoException::TYPE_FTOK, errno);
 	this->id = semget ( clave, cantidad,0666 | IPC_CREAT );
+	if (id == -1) throw SemaforoException(SemaforoException::TYPE_SEMGET, errno);
 	this->inicializar ();
 	this->pidCreador = getpid();
 }
@@ -27,8 +30,8 @@ int Semaforo :: inicializar () const {
 	init.val = this->valorInicial;
 	int resultado;
 	for (int i = 0; i < this->cantidad; i++){
-		//TODO manejo de errores!
 		resultado = semctl ( this->id,i,SETVAL,init );
+		if (resultado == -1) throw SemaforoException(SemaforoException::TYPE_SEMCTL, errno);
 	}
 	Logger::insert(Logger::TYPE_DEBUG, "Semaforo creado correctamente (" + nombreArchivo + ")");
 	return resultado;
@@ -43,11 +46,12 @@ int Semaforo :: timedWait (int pos, int seconds) {
 	time.tv_sec = seconds;
 	time.tv_nsec = 0;
 	int resultado = semtimedop ( this->id,&operacion, 1, &time );
-	//TODO manejar ERRNO si falla
-	return (resultado < 0)? errno : resultado;
+	if (resultado == -1 && errno != EAGAIN) //Si el error no fue por timeout tira exception
+		throw SemaforoException(SemaforoException::TYPE_SEMTIMEDOP, errno);
+	else return (resultado < 0)? errno : resultado;
 }
 
-int Semaforo :: wait (int pos) const {
+void Semaforo :: wait (int pos) const {
 
 	struct sembuf operacion;
 
@@ -57,11 +61,10 @@ int Semaforo :: wait (int pos) const {
 	//El ultimo param de semop es la longitud del segundo parametro
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );
-	//TODO manejar ERRNO si falla
-	return (resultado < 0)? errno : resultado;
+	if (resultado == -1) throw SemaforoException(SemaforoException::TYPE_SEMOP, errno);
 }
 
-int Semaforo :: signal (int pos) const {
+void Semaforo :: signal (int pos) const {
 
 	struct sembuf operacion;
 
@@ -71,8 +74,7 @@ int Semaforo :: signal (int pos) const {
 	//El ultimo param de semop es la longitud del segundo parametro
 	//en este caso siempre es uno
 	int resultado = semop ( this->id,&operacion, 1 );
-	//TODO manejar ERRNO si falla
-	return resultado;
+	if (resultado == -1) throw SemaforoException(SemaforoException::TYPE_SEMOP, errno);
 }
 
 void Semaforo :: eliminar () const {
