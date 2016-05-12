@@ -23,21 +23,42 @@ private:
 	Semaforo semaforoJuego;
 	LockFile lockJuego;
 	int cantidad;
-
+	/*
+	 * Ejecuta el juego o espera en cola dependiendo si hay la cantidad
+	 * de gente necesaria para comenzar
+	 * */
 	void jugar(Juego juego, int posicion, string persona);
+	/*
+	 * Inicia la ejecucion del juego, tardando su correspondiente tiempo.
+	 * */
 	void ejecutarJuego(int posicion, string persona);
+	/*
+	 * Saca del juego a las personas que actualmente estan jugando
+	 * */
 	void sacarPersonasDelJuego(int cantidad, int posicion);
+	/*
+	 * Saca de la fila a las personas que estan esperando
+	 * */
 	void sacarPersonasDeLaFila(int cantidad, int posicion);
+	/*
+	 * Entra al juego y espera a que termine
+	 * */
 	void entrarJuego(int posicion, string persona, string juego);
+	/*
+	 * Entra a la cola hasta que sea su turno o se canse de esperar
+	 * */
 	void esperarCola(int posicion, string persona, string juego);
 
 public:
 	ListaDeJuegos(vector<Juego> vec);
 	/*
-	 * getJuego se usa para solo lectura!
+	 * getJuego solo se usa para lectura no usa locks.
 	 */
 	Juego getJuego(int posicion);
 	void entrarFila(int posicion, string persona);
+	/*
+	 * Obtiene la recaudacion total de los juegos sin lockear
+	 * */
 	int obtenerRecaudacionCaja();
 	void salirJuego(int posicion);
 	int getCantidad();

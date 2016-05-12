@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/*
+ * Configuracion utilizada para crear un parque.
+ * */
 class ConfiguracionParque {
 private:
 	list<ConfiguracionJuego> configuracionesJuegos;

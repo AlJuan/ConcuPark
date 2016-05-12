@@ -22,14 +22,27 @@ private:
 	int presupuestoRestante;
 	IteradorListaDeJuegos itListaJuegos;
 	void jugar(Juego juego);
-	bool puedeJugarJuego(Juego juego);
 	bool puedePagarJuego(Juego);
 	bool puedePagarAlgunJuego();
 public:
 	Persona( int id, ConfiguracionPersona conf, ListaDeJuegos* juegos);
+	/*
+	 * Entra al parque y cuando termina de jugar sale
+	 * */
 	void ejecutar();
+	/*
+	 * Juega a los juegos hasta que no pueda pagar ninguno
+	 * */
 	void entrarAlParque();
+	/*
+	 * Recorre los juegos buscando alguno que pueda pagar y juega
+	 * en ese
+	 * */
 	void jugarSiguienteJuego();
+	/*
+	 * Disminuye el presupuesto restante el precio que cueste el
+	 * juego
+	 * */
 	void pagarEntrada(Juego juego);
 	void salirDelParque();
 	string toString();

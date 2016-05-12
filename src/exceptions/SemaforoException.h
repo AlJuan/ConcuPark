@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/*
+ * Exception que define los tipos de error de semaforos
+ * */
 class SemaforoException : public IPCException {
 public:
 	SemaforoException(string msg, int code);

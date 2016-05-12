@@ -10,6 +10,9 @@
 #include <cerrno>
 #include "FileHelper.h"
 
+/*
+ * Implementacion de semaforo
+ * */
 class Semaforo {
 
 private:
@@ -23,6 +26,11 @@ private:
 public:
 	Semaforo ( const std::string& nombre,const int valorInicial, int cantidad);
 	~Semaforo();
+	/*
+	 * Epera que el semaforo se libere, pero de no liberarse en el tiempo
+	 * indicado por parametro devuelve error EAGAIN. Si se libero antes
+	 * devuelve 0
+	 * */
 	int timedWait(int pos, int seconds);
 	void wait (int pos) const; // decrementa
 	void signal (int pos) const; // incrementa

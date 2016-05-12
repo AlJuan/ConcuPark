@@ -21,6 +21,10 @@ public:
 	IteradorListaDeJuegos(ListaDeJuegos* ptr);
 	ListaDeJuegos* getLista();
 	Juego getSiguienteJuego();
+	/*
+	 * Entra al juego, es decir, se coloca en la fila de espera
+	 * hasta que su turno llegue y luego juega.
+	 * */
 	void entrarJuegoActual(string persona);
 	void salirJuegoActual();
 	bool esElUltimoJuego();

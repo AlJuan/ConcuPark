@@ -30,11 +30,20 @@ private:
 public:
 	JuegosCompartidos(vector<Juego> juegos);
 	virtual ~JuegosCompartidos();
+	/*
+	 * Aumenta cantidad de personas en fila y cobra la entrada
+	 * */
 	Juego entrarFila(int posicion);
+	/*
+	 * Disminuye la cantidad de personas en la fila
+	 * */
 	void salirFila(int posicion, int cantidad);
+	/*
+	 * Disminuye la cantidad de personas jugando
+	 * */
 	void salirJuego(int posicion, int cantidad);
 	/*
-	 * getJuego se usa para solo lectura!
+	 * getJuego no utiliza locks, se usa solo para lectura.
 	 */
 	Juego getJuego(int posicion);
 	/*

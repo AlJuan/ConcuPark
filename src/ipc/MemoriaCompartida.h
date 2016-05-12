@@ -11,13 +11,23 @@
 
 #define MEMORIA_EXT "tmp"
 
+
+/*
+ * Implementacion de memoria compartida
+ * */
 template <class T> class MemoriaCompartida {
 
 private:
 	int shmId;
 	T*	ptrDatos;
 
+	/*
+	 * Devuelve la cantidad de procesos que utilizan esta memoria compartida
+	 * */
 	int cantidadProcesosAdosados () const;
+	/*
+	 * Obtiene (shmget) e inicializa (shmat) la memoria compartida
+	 * */
 	void obtenerMemoriaCompartida(key_t key, int cant);
 
 public:

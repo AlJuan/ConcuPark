@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/*
+ * Exception que define los tipos de error de memoria compartida
+ * */
 class MemoriaCompartidaException : public IPCException {
 public:
 	MemoriaCompartidaException(string msg, int code);

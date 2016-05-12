@@ -48,7 +48,9 @@ Juego::~Juego() {
 }
 
 bool Juego::haySuficientesPersonasParaJugar(){
-	return personasEnFila > 0 && (personasEnFila % capacidad) == 0;
+	//Indica si hay alguien en la fila y si la cantidad de personas
+	//en la fila supera a la cantidad necesaria para empezar
+	return personasEnFila > 0 && (personasEnFila - capacidad) >= 0;
 }
 
 void Juego::cobrarEntrada(){

@@ -8,6 +8,9 @@
 #ifndef CONFIGURACIONES_CONFIGURACIONJUEGO_H_
 #define CONFIGURACIONES_CONFIGURACIONJUEGO_H_
 
+/*
+ * Configuracion utilizada para crear un juego.
+ * */
 class ConfiguracionJuego {
 private:
 	int capacidad;

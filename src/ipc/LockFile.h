@@ -6,6 +6,9 @@
 #include <string>
 #include "FileHelper.h"
 
+/*
+ * Implementacion de un lock
+ * */
 class LockFile {
 
 private:

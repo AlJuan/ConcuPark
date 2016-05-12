@@ -13,6 +13,11 @@
 
 using namespace std;
 
+/*
+ * Exception base para cualquier problema de comunicacion
+ * entre procesos o sincronizacion.
+ * */
+
 class IPCException: public runtime_error {
 	int code;
 public:

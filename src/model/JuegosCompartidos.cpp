@@ -67,6 +67,7 @@ Juego JuegosCompartidos::getJuego(int posicion) {
 void JuegosCompartidos::salirJuego(int posicion, int cantidad){
 	Juego juego = this->tomarJuegoSalida(posicion);
 	juego.disminuirPersonasJugando(cantidad);
+	this->mem.escribir(juego, posicion);
 	this->liberarJuegoSalida(posicion);
 }
 

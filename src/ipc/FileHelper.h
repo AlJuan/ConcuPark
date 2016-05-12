@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/*
+ * Utilidad que sirve para crear y borrar archivos.
+ * */
 class FileHelper {
 public:
 	static string crearArchivo(string nombre, string ext);

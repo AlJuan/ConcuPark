@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/*
+ * Exception que define los tipos de error de locks
+ * */
 class LockException : public IPCException {
 public:
 	LockException(string msg, int code);

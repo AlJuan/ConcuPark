@@ -32,7 +32,14 @@ public:
 	int getDineroAcumulado();
 	int getCantidadListosParaJugar();
 	void setCosto(int costo);
+	/*
+	 * Indica si la cantidad de persona esperando entrar al juego
+	 * supera a la cantidad necesaria para comenzar
+	 * */
 	bool haySuficientesPersonasParaJugar();
+	/*
+	 * SOLO Aumenta la recaudacion del juego
+	 * */
 	void cobrarEntrada();
 	void aumentarPersonasJugando();
 	void disminuirPersonasJugando(int cantidad);

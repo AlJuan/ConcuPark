@@ -8,6 +8,10 @@
 #ifndef CONFIGURACIONES_CONFIGURACIONPERSONA_H_
 #define CONFIGURACIONES_CONFIGURACIONPERSONA_H_
 
+
+/*
+ * Configuracion utilizada para crear una persona.
+ * */
 class ConfiguracionPersona {
 private:
 	int saldoInicial;
